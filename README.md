@@ -12,10 +12,10 @@ All of this technology is very simple, and I just write some demo for them to ha
   6.javascript
   7.es6
   
-#1.1 AngularJS
+#1.1 AngularJS<br>
   Learn how to use the base directives or components of it, and then write a simple demo of the background management system.
   
-#1.2 Bootstrap
+#1.2 Bootstrap\n
   Learn the base grammer and components of it, and then write a simple demo of the background management system.
   learn the how to use underscore.
   
