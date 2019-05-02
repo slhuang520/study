@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS ng-model 指令</title>
+
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/angular/angular.min.js"></script>
+    <style>
+        /*
+        ng-model 指令根据表单域的状态添加/移除以下类：
+            ng-empty
+            ng-not-empty
+            ng-touched
+            ng-untouched
+            ng-valid
+            ng-invalid
+            ng-dirty
+            ng-pending
+            ng-pristine
+        */
+        input.ng-invalid { /*ng-model 指令基于它们的状态为 HTML 元素提供了 CSS 类*/
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+<body>
+
+    <!--ng-model 指令可以将输入域的值与 AngularJS 创建的变量绑定。-->
+    <!--<div ng-app="myApp" ng-controller="myController">
+        <p>名字: <input type="text" ng-model="name"></p>
+    </div>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myController", function ($scope) {
+            $scope.name = "Json De";
+        });
+    </script>-->
+
+    <!--双向绑定，在修改输入域的值时， AngularJS 属性的值也将修改：-->
+    <!--<div ng-app="myApp" ng-controller="myController">
+        <p>名字: <input type="text" ng-model="name"></p> //ng-model 会自动将多个连续空格转换成一个空格
+        <h2>你输入了:  {{name}}</h2>
+    </div>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myController", function ($scope) {
+            $scope.name = "Json Den";
+        });
+    </script>-->
+
+    <!--验证用户输入:AngularJS内部自己的邮箱验证-->
+    <!--<form ng-app="" name="myForm">
+        Email: <input type="email" name="myEmail" ng-model="my_email">
+        <span ng-show="myForm.myEmail.$error.email">不是一个合法的邮箱地址</span>
+    </form>-->
+
+    <!--
+        ng-invalid:未通过验证的表单
+        ng-valid:布尔型属性，它指示表单是否通过验证。如果表单当前通过验证，他将为true
+        ng-dirty:布尔值属性，表示用户是否修改了表单。如果为 ture，表示有修改过；false 表示修没有修改过
+        ng-touched:布尔值属性，表示用户是否和控件进行过交互
+        ng-pristine:布尔值属性，表示用户是否修改了表单。如果为ture，表示没有修改过；false表示修改过
+        ng-error:验证错误信息
+        $error的值为一个js对象，包含了以下验证内容的状态：
+            email
+            max
+            maxlength
+            min
+            minlength
+            number
+            pattern
+            required
+            url
+    -->
+    <!--<form ng-app="" name="myForm" ng-init="myText = 'test@runoob.com'">
+        Email:
+        <input type="email" name="myAddress" ng-model="myText" required></p>
+        <h1>状态</h1>
+        {{myForm.myAddress.$valid}}
+        {{myForm.myAddress.$dirty}}
+        {{myForm.myAddress.$touched}}
+    </form>-->
+
+    <b>自定义验证规则：</b>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <ul>
+            <li>姓： <input type="text" ng-model="xing"></li>
+            <li>名： <input type="text" ng-model="ming"></li>
+            <li>全名：<h4>{{xing + " " + ming}}</h4></li>
+            <li>全名：<h3>{{fullName}}</h3></li>
+            <li>全名：<h3>{{getFullName()}}</h3></li>
+            <li>只能输入偶数：<input type="text" ng-model="evenNum" even-num></li>
+        </ul>
+    </div>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myCtrl", function ($scope) {
+            $scope.xing = "Huang";
+            $scope.ming = "ShuLin";
+            $scope.fullName = $scope.xing + " " + $scope.ming;
+            $scope.$watch("xing", function (newVal, oldVal, scope) { //$watch() 监听
+                //console.log($scope == scope); //true
+                scope.fullName = scope.xing + " " + scope.ming;
+            });
+            $scope.$watch("ming", function (newVal, oldVal, scope) {
+                $scope.fullName = $scope.xing + " " + $scope.ming;
+            });
+
+            //还可以使用函数的形式
+            $scope.getFullName = function () {
+                return $scope.xing + " " + $scope.ming;
+            }
+        });
+        app.directive('evenNum',function() {
+            return {
+                require: 'ngModel',
+                link: function (scope, elm, attrs, ctrl) {
+                    ctrl.$parsers.push(function (viewValue) {
+                        if (viewValue % 2 == 0) {
+                            ctrl.$setValidity('evenNum', true);
+                            return viewValue;
+                        } else {
+                            ctrl.$setValidity('evenNum', false);
+                            return viewValue;
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+
+
+</body>
+</html>

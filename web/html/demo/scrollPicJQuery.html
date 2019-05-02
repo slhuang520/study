@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自动轮播 Jquery</title>
+    <script src="../../javascript/jQuery/jquery-2.1.3.min.js"></script>
+    <script>
+    $(function () {
+
+        //动态添加数字浮标
+        var imgNum = $(".img li").size();
+        for (var i = 1; i <= imgNum; i++) {
+            $(".num").append("<li>" + i + "</li>");
+        }
+
+        $(".img li").eq(0).fadeIn(300);
+        $(".num li").eq(0).addClass("active");
+
+        //数字浮标的焦点事件
+        $(".num li").mousemove(function () {
+            if (!$(this).hasClass("active")) {
+                $(this).addClass("active").siblings().removeClass("active");
+                idx = $(this).index();
+                $(".img li").eq(idx).stop().fadeIn(300).siblings().stop().fadeOut(300);
+            }
+        });
+
+        //显示向左移动图标
+        $(".shade_left").hover(function () {
+            $(".out .left").stop().fadeIn();
+        }, function () {
+            $(".out .left").stop().fadeOut();
+        });
+
+        //显示向右移动图标
+        $(".shade_right").hover(function () {
+            $(".out .right").stop().fadeIn();
+        }, function () {
+            $(".out .right").stop().fadeOut();
+        });
+
+        //转移图片的a标签的click事件
+        $(".shade").click(function () {
+            location.href = $(".img li:visible a").attr("href");
+        });
+
+        //手动向左移动
+        $(".out .btn.left").click(function (e) {
+            move(-1);
+            e.stopPropagation();
+        });
+        //手动向右移动
+        $(".out .btn.right").click(function (e) {
+            move();
+            e.stopPropagation();
+        });
+
+        //自动轮播
+        var idx = 0;
+        var timer = setInterval(move, 1000);
+        function move(left) {
+            if (left) { //向左移动
+                idx--;
+                if (idx == -1) {
+                    idx = imgNum - 1;
+                }
+            } else {
+                idx++;
+                if (idx == imgNum) {
+                    idx = 0;
+                }
+            }
+            $(".num li").eq(idx).addClass("active").siblings().removeClass("active");
+            $(".img li").eq(idx).stop().fadeIn(300).siblings().stop().fadeOut(300);
+        }
+
+        //图片获取焦点时，停止自动轮播
+        $(".out").hover(function () {
+            clearInterval(timer);
+        }, function () {
+            timer = setInterval(move, 1000);
+        });
+    });
+
+    </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        img {
+            width: 800px;
+            height: 600px;
+        }
+        ul li {
+            list-style: none;
+        }
+        .out {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            margin: 50px auto;
+        }
+        .out .shade {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);/*不能使用opacity，不然会被子元素继承(会忽视子元素所设置的background-color: opacity)*/
+            /*pointer-events: auto;*/
+        }
+        .out .shade_left {
+            left: 0;
+        }
+        .out .shade_right {
+            right: 0;
+        }
+        .out .img li {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            /*pointer-events: none; //该层会将事件会传给下面一个层（z-index小于他的层） */
+        }
+        .out .num {
+            position: absolute;
+            font-size: 0;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        .out .num li {
+            width: 20px;
+            height: 20px;
+            background-color: #777;
+            color: #fff;
+            line-height: 20px;
+            text-align: center;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            display: inline-block;
+            font-size: 13px;
+            margin: 0 3px;
+            cursor: pointer;
+        }
+        .out .num li.active {
+            background-color: #b92c28;
+        }
+        .out .btn {
+            position: absolute;
+            top: 50%;
+            margin-top: -50px;
+            color: #fff;
+            height: 100px;
+            line-height: 100px;
+            width: 50px;
+            background-color: rgba(0, 0, 0, 0.2);
+            font-size: 40px;
+            text-align: center;
+            cursor: pointer;
+            display: none;
+        }
+        .out .left {
+            left: 0;
+        }
+        .out .right {
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="out">
+
+        <ul class="img">
+            <li><a href="https://www.baidu.com/"><img src="./images/servlet/1.jpg" alt=""></a></li>
+            <li><a href="http://www.jb51.net/article/49760.htm"><img src="./images/servlet/2.jpg" alt=""></a></li>
+            <li><a href=""><img src="./images/servlet/3.jpg" alt=""></a></li>
+            <li><a href=""><img src="./images/servlet/4.jpg" alt=""></a></li>
+            <li><a href=""><img src="./images/servlet/5.jpg" alt=""></a></li>
+            <li><a href=""><img src="./images/servlet/6.jpg" alt=""></a></li>
+        </ul>
+
+        <div class="shade shade_left">
+            <div class="left btn"><</div>
+        </div>
+        <div class="shade shade_right">
+            <div class="right btn">></div>
+        </div>
+
+        <ul class="num"></ul>
+    </div>
+
+</body>
+</html>

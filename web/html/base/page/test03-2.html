@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>scroll bar.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	
+	<style>
+		#parent {
+			width: 500px;
+			height: 20px;
+			top: 100px;
+			left: 100px;
+			background: #eee;
+			position: absolute;
+		}
+		#move {
+			width: 20px;
+			height: 20px;
+			background: red;
+			position: absolute;
+		}
+		#move span {
+			position: relative;
+			top: -20px;
+			color: green;
+		}
+		#view {
+			top: 75px;
+			left: 100px;
+			color: green;
+			position: absolute;
+			display: none;
+		}
+		#div2 {
+			width: 0;
+			height: 0;
+			background: gray;
+		}
+	</style>
+	
+	<script>
+		window.onload = function() {
+			
+			var oParent = document.getElementById("parent");
+			var oMove = document.getElementById("move");
+			var oView = document.getElementById("view");
+			var oDiv = document.getElementById("div2");
+			
+			var disX = 0;
+			var disY = 0;
+			
+			oMove.onmousedown = function(e) {
+				
+				var oEvent = e||event;
+				
+				disX = oEvent.clientX - oMove.offsetLeft;
+				
+				document.onmousemove = function(e) {
+					
+					var oEvent = e||event;
+					
+					oMove.style.left = (oEvent.clientX - disX) <= 0 ? 0 : ((oEvent.clientX - disX) >= (oParent.offsetWidth - oMove.offsetWidth) ? (oParent.offsetWidth - oMove.offsetWidth) : (oEvent.clientX - disX)) + "px";
+					//oView.style.left = (oEvent.clientX - disX) <= 0 ? 100 : ((oEvent.clientX - disX) >= (oParent.offsetWidth - oMove.offsetWidth) ? (oParent.offsetWidth - oMove.offsetWidth) : (oEvent.clientX - disX)) + 100 + "px";
+					
+					var bili = parseInt(oMove.style.left) / parseInt((oParent.offsetWidth - oMove.offsetWidth));
+					
+					//oView.innerHTML = parseInt(bili * 100) +"%";
+					oMove.getElementsByTagName("span")[0].innerHTML = parseInt(bili * 100) +"%";
+					
+					oDiv.style.width = 200 * bili + "px";
+					oDiv.style.height = 200 * bili + "px";
+					
+				};
+				document.onmouseup = function() {
+					document.onmousemove = null;
+					document.onmouseup = null;
+				};
+				//阻止 Firefox 的 BUG
+				return false;
+			};
+			
+		};
+	
+	</script>
+  </head>
+  
+  <body>
+  	<div id="parent">
+  		<div id="move">
+  			<span>0%</span>
+  		</div>
+  	</div>
+  	<div id="view">0%</div>
+  	<div id="div2"></div>
+  </body>
+</html>
+
+

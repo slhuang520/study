@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>mouse drag with border.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	
+	<style>
+		#div1 {
+			width: 100px;
+			height: 100px;
+			background: red;
+			position: absolute;
+		}
+		.box {
+			border: 1px dashed #000;
+			position: absolute;
+		}
+	</style>
+	
+	<script>
+		window.onload = function() {
+			
+			var oDiv = document.getElementById("div1");
+			var disX = 0;
+			var disY = 0;
+			
+			oDiv.onmousedown = function(e) {
+				
+				var oEvent = e||event;
+				
+				disX = oEvent.clientX - oDiv.offsetLeft;
+				disY = oEvent.clientY - oDiv.offsetTop;
+				
+				var oBox = document.createElement("div");
+				oBox.className = "box";
+				oBox.style.width = oDiv.offsetWidth - 2 + "px";
+				oBox.style.height = oDiv.offsetHeight - 2 + "px";
+				oBox.style.left = oDiv.offsetLeft + "px";
+				oBox.style.top = oDiv.offsetTop + "px";
+				document.body.appendChild(oBox);
+				
+				document.onmousemove = function(e) {
+					
+					var oEvent = e||event;
+					
+					oBox.style.left = (oEvent.clientX - disX) <= 0 ? 0 : ((oEvent.clientX - disX) >= (document.documentElement.clientWidth - oDiv.offsetWidth) ? (document.documentElement.clientWidth - oDiv.offsetWidth) : (oEvent.clientX - disX)) + "px";
+					oBox.style.top = (oEvent.clientY - disY) <= 0 ? 0 : ((oEvent.clientY - disY) >= (document.documentElement.clientHeight - oDiv.offsetHeight) ? (document.documentElement.clientHeight - oDiv.offsetHeight) : (oEvent.clientY - disY)) + "px";
+				};
+				document.onmouseup = function() {
+					document.onmousemove = null;
+					document.onmouseup = null;
+					
+					oDiv.style.left = oBox.offsetLeft + "px";
+					oDiv.style.top = oBox.offsetTop + "px";
+					document.body.removeChild(oBox);
+					
+				};
+				//阻止 Firefox 的 BUG
+				return false;
+			};
+			
+		};
+	
+	</script>
+  </head>
+  
+  <body>
+  	<div id="div1"></div>
+  </body>
+</html>

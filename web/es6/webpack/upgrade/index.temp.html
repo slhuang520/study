@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test webpack</title>
+    <script>
+        var lang = navigator.language;
+        var glbLang = "en";
+        if (lang === "zh-CN") {
+            glbLang = "cn";
+        }
+    </script>
+</head>
+<body>
+
+    <!--使用 background-image 添加图片-->
+    <div style="background-image: url(./images/A.jpg);width: 690px;height: 863px"></div>
+
+    <br style="color: red">
+
+    <!--使用 css 添加图片-->
+    <div class="imgs"></div>
+
+    <h3>This is my first test.</h3>
+
+    <!--使用 img 添加图片-->
+    <img src="./images/A.jpg" alt="">
+
+    <script>
+        document.write('<scr'+'ipt src="'+glbLang+ '.bundle.js"></scr'+'ipt>');
+    </script>
+</body>
+</html>

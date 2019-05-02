@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>后台管理界面</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            min-width: 250px;
+        }
+        #left_menu {
+            height: 100%;
+        }
+        #left_menu .navbar-collapse {
+            padding-left: 0;
+        }
+        #left_menu .collapse {
+            margin-left: 20px;
+        }
+        #right_content {
+            padding: 0;
+        }
+        #right_content .row {
+            padding: 0;
+            margin-left: -13px;
+            margin-right: -13px;
+        }
+        @media (min-width: 768px) {
+            #left_menu {
+                width: 250px;
+                position: absolute;
+                top: 50px;
+            }
+            #right_content {
+                height: 877px;
+                margin: 53px 0 0 250px;
+            }
+            #right_content .row {
+                padding: 0;
+                margin: 0;
+            }
+            #right_content .breadcrumb {
+                margin-left: 2px;
+            }
+        }
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you views the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+        $(function () {
+            $("#home_label").click(function (e) {
+                e.preventDefault();
+                $("li ul", "#menu_col").collapse('hide');
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" id="home_label"><span class="glyphicon glyphicon-home"></span>&nbsp;后台管理</a>
+            </div>
+            <div id="navbar" class="collapse navbar-right navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#"><span class="badge" style="background-color: #b92c28">42</span></a></li>
+                    <li><a href="#about"><span class="glyphicon glyphicon-off"></span>&nbsp;注销</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-default" id="left_menu">
+        <div class="navbar-default navbar-collapse" id="menu_col">
+            <ul class="nav nav-sidebar">
+                <li>
+                    <div class="input-group" style="margin: 5px 10px;">
+                        <input type="text" class="form-control" placeholder="Search"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <a href="#system_menu" data-toggle="collapse"><span class="glyphicon glyphicon-cog"></span>&nbsp;系统功能 <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+                    <ul class="nav collapse" id="system_menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-align-left"></span>&nbsp;系统日志</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;用户管理</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-star-empty"></span>&nbsp;会员管理</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-check"></span>&nbsp;角色设定</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-lock"></span>&nbsp;权限设定</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;界面设置</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#product_menu" data-toggle="collapse"><span class="glyphicon glyphicon-gift"></span>&nbsp;产品功能 <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+                    <ul class="nav collapse" id="product_menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-align-left"></span>&nbsp;系统日志</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;用户管理</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;会员管理</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-check"></span>&nbsp;角色设定</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-lock"></span>&nbsp;权限设定</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;界面设置</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#lm_menu" data-toggle="collapse"><span class="glyphicon glyphicon-th-list"></span>&nbsp;栏目功能 <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+                    <ul class="nav collapse" id="lm_menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-align-left"></span>&nbsp;系统日志</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;用户管理</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;会员管理</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-check"></span>&nbsp;角色设定</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-lock"></span>&nbsp;权限设定</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;界面设置</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#block_menu" data-toggle="collapse"><span class="glyphicon glyphicon-calendar"></span>&nbsp;模块功能 <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+                    <ul class="nav collapse" id="block_menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-align-left"></span>&nbsp;系统日志</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;用户管理</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;会员管理</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-check"></span>&nbsp;角色设定</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-lock"></span>&nbsp;权限设定</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;界面设置</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#other_menu" data-toggle="collapse"><span class="glyphicon glyphicon-fire"></span>&nbsp;其他功能 <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+                    <ul class="nav collapse" id="other_menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-align-left"></span>&nbsp;系统日志</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;用户管理</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;会员管理</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-check"></span>&nbsp;角色设定</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-lock"></span>&nbsp;权限设定</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;界面设置</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid" id="right_content">
+
+        <div class="breadcrumb ">
+            <li><a href="">系统管理</a></li>
+            <li><a href="">用户管理</a></li>
+            <li class="active">用户列表</li>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">普通用户</div>
+                    <div class="panel-body">
+                        <p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    </div>
+                    <table class="table table-bordered table-hover table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>normal</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr><td>2</td><td>normal</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr><td>3</td><td>normal</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr><td>4</td><td>normal</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr><td>5</td><td>normal</td><td>Otto</td><td>@mdo</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">星级用户</div>
+                    <div class="panel-body">
+                        <p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    </div>
+                    <table class="table table-bordered table-hover table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="active"><td>1</td><td>active</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr class="success"><td>2</td><td>success</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr class="info"><td>3</td><td>info</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr class="warning"><td>4</td><td>warning</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr class="danger"><td>5</td><td>danger</td><td>Otto</td><td>@mdo</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">未认证用户</div>
+                    <div class="panel-body">
+                        <p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    </div>
+                    <table class="table table-bordered table-hover table-striped table-responsive">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="active"><td>1</td><td>active</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr class="success"><td>2</td><td>success</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr class="info"><td>3</td><td>info</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr class="warning"><td>4</td><td>warning</td><td>Otto</td><td>@mdo</td></tr>
+                            <tr class="danger"><td>5</td><td>danger</td><td>Otto</td><td>@mdo</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-5 col-sm-push-6">
+            <nav aria-label="Page navigation" class="pull-right">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav></div>
+        </div>
+    </div>
+
+</body>
+</html>

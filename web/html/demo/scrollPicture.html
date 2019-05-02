@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>无缝滚动.html</title>
+	
+	<meta charset="UTF-8">
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		img {
+			width: 180px;
+			height: 200px;
+		}
+		#scroll {
+			width: 1080px;
+			height: 200px;
+			background-color: red;
+			margin: 100px auto;
+			overflow: hidden;
+			position: relative;
+		}
+		#scroll ul {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		
+		#scroll ul li {
+			list-style: none;
+			float: left;
+			width: 180px;
+			height: 200px;
+		}
+		
+		span {
+			font-size: 50px;
+			display: inline-block;
+			margin: 0 10px;
+			cursor: pointer;
+		}
+	</style>
+	<script>
+		
+		window.onload = function() {
+			
+			var oDiv = document.getElementById("scroll");
+			var oUl = oDiv.getElementsByTagName("ul")[0];
+			var aLi = oUl.getElementsByTagName("li");
+			
+			var speed = 1;
+			
+			oUl.innerHTML = oUl.innerHTML + oUl.innerHTML;
+			oUl.style.width = aLi[0].offsetWidth * aLi.length + 'px';
+			
+			function move() {
+				if (oUl.offsetLeft < -oUl.offsetWidth/2) {
+					oUl.style.left = '0';
+				}
+				
+				if (oUl.offsetLeft > 0) {
+					oUl.style.left = -oUl.offsetWidth/2 + 'px';
+				}
+				oUl.style.left = oUl.offsetLeft + speed + 'px';
+			}
+			var timer = setInterval(move, 20);
+			
+			oDiv.onmouseover = function() {
+				clearInterval(timer);
+			};
+			
+			oDiv.onmouseout = function() {
+				timer = setInterval(move, 20);
+			};
+			
+			document.getElementById("left").onclick = function () {
+				speed = -1;
+			};
+			
+			document.getElementById("right").onclick = function() {
+				speed = 1;
+			};
+			
+			
+		};
+		
+	</script>
+	
+  </head>
+  
+  <body>
+  
+  	<div id="scroll">
+  		<ul>
+  			<li><img alt="美女 (1).jpg" src="images/servlet/1.jpg"/></li>
+  			<li><img alt="美女 (2).jpg" src="images/servlet/2.jpg"/></li>
+  			<li><img alt="美女 (3).jpg" src="images/servlet/3.jpg"/></li>
+  			<li><img alt="美女 (4).jpg" src="images/servlet/4.jpg"/></li>
+  			<li><img alt="美女 (5).jpg" src="images/servlet/5.jpg"/></li>
+  			<li><img alt="美女 (6).jpg" src="images/servlet/6.jpg"/></li>
+  			<li><img alt="美女 (6).jpg" src="images/servlet/7.jpg"/></li>
+  			<li><img alt="美女 (6).jpg" src="images/servlet/8.jpg"/></li>
+  			<li><img alt="美女 (6).jpg" src="images/servlet/9.jpg"/></li>
+  			<li><img alt="美女 (6).jpg" src="images/servlet/10.jpg"/></li>
+  			<li><img alt="美女 (6).jpg" src="images/servlet/11.jpg"/></li>
+  			<li><img alt="美女 (6).jpg" src="images/servlet/12.jpg"/></li>
+  			<li><img alt="美女 (6).jpg" src="images/servlet/13.jpg"/></li>
+  			<li><img alt="美女 (6).jpg" src="images/servlet/14.jpg"/></li>
+  		</ul>
+  	</div>
+  	<div align="center">
+  		<span id="left">向左移动</span>
+  		<span id="right">向右移动</span>
+  	</div>
+  
+  </body>
+</html>

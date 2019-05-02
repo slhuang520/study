@@ -1,0 +1,9 @@
+body {
+    background-color: yellow;
+    color: blue;
+}
+div.imgs {
+    background-image: url(../images/B.jpg);
+    width: 1333px;
+    height: 1000px;
+}

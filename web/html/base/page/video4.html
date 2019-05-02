@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+    <h2>HTML5之前播放视频的方式</h2>
+    <h3>使用embed标签播放flash（所有的浏览器都可用，但在HTML4中不包括在Web的标准中）</h3>
+    <embed src="../../../html5/base/video/zq.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="500" height="430"></embed>
+    <br>
+    <h3>使用object标签播放flash（IE8及以下不可用）</h3>
+    <object type="application/x-shockwave-flash"
+            data="../../../html5/base/video/zq.swf" width="500" height="430">
+    </object>
+
+    <h3>只用于IE的低版本，从IE11开始不提供支持，其它浏览器不可用</h3>
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+            width="500" height="430">
+        <param name="src" value="video/zq.swf" />
+    </object>
+
+
+    <h3>使用object兼容所有的浏览器</h3>
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+            width="500" height="430">
+        <param name="src" value="video/zq.swf" />
+        <object type="application/x-shockwave-flash"
+                data="../../../html5/base/video/zq.swf" width="500" height="430">
+        </object>
+    </object>
+
+    <h3>使用object和embed确保一定要兼容所有的浏览器</h3>
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+            width="500" height="430">
+        <param name="src" value="video/zq.swf" />
+        <embed type="application/x-shockwave-flash"
+               src="../../../html5/base/video/zq.swf" width="500" height="430">
+        </embed>
+    </object>
+
+
+    <h3>使用embed标签播放mp4文件（有的浏览器内置了插件，有的需要下载，不方便）</h3>
+    <embed src="../../../html5/base/video/草原放牧.mp4" autostart="false" width="640" height="360">
+    </embed><!--autostart="false"  设置不自动播放，只在IE中有效-->
+
+    <h3>使用object标签播放mp4文件（IE8及以下不可用）</h3>
+    <object data="../../../html5/base/video/草原放牧.mp4" width="640" height="360">
+    </object>
+
+    <h3>使用object标签播放mp4文件（只用于IE，需要下载插件，其他浏览器不可用）</h3>
+    <object width="640" height="360"
+            classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"
+            codebase="http://www.apple.com/qtactivex/qtplugin.cab">
+        <param name="src" value="video/草原放牧.mp4">
+    </object>
+
+    <h3>总结</h3>
+    <p>很乱。。很乱。。其实兼容性最好的方式是使用 embed 标签播放flash。。但是flash已经被苹果抛弃。。</p>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS 过滤器</title>
+
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/angular/angular.min.js"></script>
+</head>
+<body>
+
+    <!--过滤器可以使用一个管道字符（|）添加到表达式和指令中，多个 filter 使用多个(|)，一个 filter 多个参数使用多个(:)-->
+    <!--
+        currency: 格式化数字为货币格式。
+        filter: 从数组项中选择一个子集。
+        lowercase: 格式化字符串为小写。
+        orderBy: 根据某个表达式排列数组。默认升序asc,倒序添加-负号
+        uppercase: 格式化字符串为大写。
+        data: 格式化
+        number: 格式化（保留小数）
+        limitTo: 截取(位数)
+    -->
+    <div ng-app="myApp" ng-controller="myCtrl" ng-init="name='Tom';price=555">
+        <p>lowercase: {{name | lowercase}}</p>
+        <p>uppercase: {{name | uppercase}}</p>
+        <p>currency: {{price | currency}}</p>
+        <p>currency: {{price | currency: "RMB ￥ "}}</p>
+        <p>currency: {{price | currency: "我的转换 "}}</p>
+        <p>date: {{1890165945000 | date:"yyyy-MM-dd HH:mm:ss"}}</p>
+        <p>number: {{5103168410.168131541 | number: 3}}</p>
+        <p>limitTo: {{168412.16841651 | limitTo: 5}}</p>
+        <p>limitTo: {{"this is just a test" | limitTo: 6}}</p>
+        <p>limitTo: {{"测试中文" | limitTo: 3}}</p>
+        根据id降序排:
+        {{ [{"age": 20,"id": 10,"name": "iphone"},
+        {"age": 12,"id": 11,"name": "sunm xing"},
+        {"age": 44,"id": 12,"name": "test abc"}
+        ] | orderBy:'id':true }}
+
+        <br/>
+        根据-id升序排:
+        {{ [{"age": 20,"id": 10,"name": "iphone"},
+        {"age": 12,"id": 11,"name": "sunm xing"},
+        {"age": 44,"id": 12,"name": "test abc"}
+        ] | orderBy:'-id' }}
+
+        <br/>
+        根据id升序排:
+        {{ [{"age": 20,"id": 10,"name": "iphone"},
+        {"age": 12,"id": 11,"name": "sunm xing"},
+        {"age": 44,"id": 12,"name": "test abc"}
+        ] | orderBy:'id' }}
+
+        <div>{{ childrenArray | orderBy : 'age' }}</div>      //按age属性值进行排序，若是-age，则倒序
+        <div>{{ childrenArray | orderBy : orderFunc }}</div>   //按照函数的返回值进行排序
+        <div>{{ childrenArray | orderBy : ['age','name'] }}</div>  //如果age相同，按照name进行排序
+
+        <hr>
+        自定义 filter:
+        <p>{{speak | reverse}}</p>
+        <p> {{name | contactParam: speak : " and thanks."}}</p>
+
+    </div>
+    <script>
+        angular.module("myApp", []).controller("myCtrl", function ($scope) {
+            $scope.speak = "How are you!";
+            $scope.childrenArray = [{age: 1, name: 'b'}, {age: 3, name: 'd'}, {age: 0, name: 'a'}, {age: 2, name: 'e'}];
+            $scope.orderFunc = function (val) { //val 当前对象
+                return val.name;
+            }
+        }).filter("reverse", function () {
+            return function (val) {
+                return val.split("").reverse().join("");
+            }
+        }).filter("contactParam", function () {//自定义过滤器 -- 多参数
+            return function (val) {
+                return "start:" + Array.prototype.slice.call(arguments).join(",");
+            }
+        });
+    </script>
+
+</body>
+</html>

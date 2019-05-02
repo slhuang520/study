@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is my first fullpage demo</title>
+
+    <link rel="stylesheet" href="./css/jquery.fullPage.css">
+    <script src="../jquery-2.1.3.min.js"></script>
+    <script src="./lib/jquery.easing.min.js"></script>
+    <script src="./lib/jquery.fullPage.min.js"></script>
+    <script>
+        $(function () {
+            $(".main").fullpage({
+                continuousVertical: true,
+                loopBottom: false,//从头开始
+                anchors: ['page1', 'page2', 'page3', 'page4'],
+                menu: '#menu',
+                navigation: true,
+                afterLoad: function(anchorLink, index){
+                    if(index == 2){
+                        $('.s2').find('p').delay(500).animate({
+                            left: '0'
+                        }, 1500, 'easeOutExpo');
+                    }
+                    if(index == 3){
+                        $('.s3').find('p').delay(500).animate({
+                            bottom: '0'
+                        }, 1500, 'easeOutExpo');
+                    }
+                    if(index == 4){
+                        $('.s4').find('p').fadeIn(2000);
+                    }
+                },
+                onLeave: function(index, direction){
+                    if(index == '2'){
+                        $('.s2').find('p').delay(500).animate({
+                            left: '-120%'
+                        }, 1500, 'easeOutExpo');
+                    }
+                    if(index == '3'){
+                        $('.s3').find('p').delay(500).animate({
+                            bottom: '-120%'
+                        }, 1500, 'easeOutExpo');
+                    }
+                    if(index == '4'){
+                        $('.s4').find('p').fadeOut(2000);
+                    }
+                }
+            });
+            setInterval(function(){
+                $.fn.fullpage.moveSectionDown();
+            }, 3000);
+            setInterval(function(){
+                $.fn.fullpage.moveSlideRight();
+            }, 1000);
+
+            //根据可视区域大小启用/关闭全屏滚动效果
+            $(window).resize(function(){
+                autoScrolling();
+            });
+            function autoScrolling(){
+                var $ww = $(window).width();
+                if($ww < 1024){
+                    $.fn.fullpage.setAutoScrolling(false);
+                } else {
+                    $.fn.fullpage.setAutoScrolling(true);
+                }
+            }
+            autoScrolling();
+        });
+    </script>
+    <style>
+        .section { text-align: center; font: 50px "Microsoft Yahei"; color: #fff;}
+        .s2 p { position: relative; left: -120%;}
+        .s3 p { position: relative; bottom: -120%;}
+        .s4 p { display: none;}
+        .main {
+            text-align: center;
+        }
+        .s1 {
+            background: url("./images/1.jpg") 50%;
+        }
+        .s2 {
+            background: url("./images/2.jpg") 50%;
+        }
+        .s3 {
+            background: url("./images/3.jpg") 50%;
+        }
+        .s4 {
+            background: url("./images/4.jpg") 50%;
+        }
+        /*.l1 {
+            background-image: url("../../../html/demo/images/servlet/1.jpg");
+        }*/
+        .l2 {
+            background-image: url("../../../html/demo/images/servlet/2.jpg");
+        }
+        .l3 {
+            background-image: url("../../../html/demo/images/servlet/3.jpg");
+        }
+        .l4 {
+            background-image: url("../../../html/demo/images/servlet/4.jpg");
+        }
+        #menu { margin: 0; padding: 0; position: fixed; left: 10px; top: 10px; list-style-type: none; z-index: 70;}
+        #menu li { float: left; margin:  0 10px 0 0; font-size: 14px;}
+        #menu a { float: left; padding: 10px 20px; background-color: #fff; color: #333; text-decoration: none;}
+        #menu .active a { color: #fff; background-color: #333;}
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li data-menuanchor="page1" class="active"><a href="#page1">第一屏</a></li>
+    <li data-menuanchor="page2"><a href="#page2">第二屏</a></li>
+    <li data-menuanchor="page3"><a href="#page3">第三屏</a></li>
+    <li data-menuanchor="page4"><a href="#page4">第四屏</a></li>
+</ul>
+
+<div class="main">
+    <div class="section s1">
+        <h1>第1屏</h1>
+        <p>fullPage.js — 回调函数演示</p>
+    </div>
+    <div class="section s2">
+        <h1>第2屏</h1>
+        <p>滚动到第二屏后的回调函数执行的效果</p>
+        <div class="slide l1"></div>
+        <div class="slide l2"></div>
+        <div class="slide l3"></div>
+        <div class="slide l4"></div>
+    </div>
+    <div class="section s3">
+        <h1>第3屏</h1>
+        <p>滚动到第三屏后的回调函数执行的效果</p>
+    </div>
+    <div class="section s4">
+        <h1>第4屏</h1>
+        <p>滚动到第四屏后的回调函数执行的效果</p>
+    </div>
+</div>
+
+</body>
+</html>

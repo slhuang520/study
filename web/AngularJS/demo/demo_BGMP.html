@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>后台管理界面</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            min-width: 250px;
+        }
+        #left_menu {
+            height: 90%;
+        }
+        #left_menu .navbar-collapse {
+            padding-left: 0;
+        }
+        #left_menu .collapse {
+            margin-left: 20px;
+        }
+        #right_content {
+            padding: 0;
+        }
+        #right_content .row {
+            padding: 0;
+            margin-left: -13px;
+            margin-right: -13px;
+        }
+        @media (min-width: 768px) {
+            #left_menu {
+                width: 250px;
+                position: absolute;
+                top: 50px;
+            }
+            #right_content {
+                height: 877px;
+                margin: 53px 0 0 250px;
+            }
+            #right_content .row {
+                padding: 0;
+                margin: 0;
+            }
+            #right_content .breadcrumb {
+                margin-left: 2px;
+            }
+        }
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you views the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/angular/angular.min.js"></script>
+    <script src="../js/angular/route.js"></script>
+    <script src="../js/angular/routeParams.js"></script>
+    <script src="../js/angular/shallowCopy.js"></script>
+    <script src="../js/angular/ngView.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $("#home_label").click(function (e) {
+                e.preventDefault();
+                $("li ul", "#menu_col").collapse('hide');
+            });
+        });
+        angular.module('myApp', ["ngRoute"]).controller('myCtrl', function($scope) {
+            $scope.message = {
+                num : 44
+            };
+
+            $scope.searchFun = function () {
+                console.log($scope.searchInput);
+            };
+            $scope.funList = [
+                {
+                    id: "system_menu",
+                    name: "系统功能",
+                    iconClass: [
+                        "glyphicon glyphicon-cog",
+                        "glyphicon glyphicon-chevron-right"
+                    ],
+                    subFunList: [
+                        {
+                            id: "sys_log",
+                            name: "系统日志",
+                            iconClass: [
+                                "glyphicon glyphicon-align-left"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "log_list",
+                                    name: "日志列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "user_manager",
+                            name: "用户管理",
+                            iconClass: [
+                                "glyphicon glyphicon-user"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "user_list",
+                                    name: "用户列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "star_manager",
+                            name: "会员管理",
+                            iconClass: [
+                                "glyphicon glyphicon-star-empty"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "star_list",
+                                    name: "会员列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "role_manager",
+                            name: "角色设定",
+                            iconClass: [
+                                "glyphicon glyphicon-check"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "role_list",
+                                    name: "角色列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "auth_manager",
+                            name: "权限设定",
+                            iconClass: [
+                                "glyphicon glyphicon-lock"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "auth_list",
+                                    name: "权限列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "page_manager",
+                            name: "界面设置",
+                            iconClass: [
+                                "glyphicon glyphicon-list-alt"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "page_list",
+                                    name: "界面列表"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: "product_menu",
+                    name: "产品功能",
+                    iconClass: [
+                        "glyphicon glyphicon-gift"
+                    ],
+                    subFunList: [
+                        {
+                            id: "sys_log_1",
+                            name: "系统日志",
+                            iconClass: [
+                                "glyphicon glyphicon-align-left"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "log_list_1",
+                                    name: "日志列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "user_manager_1",
+                            name: "用户管理",
+                            iconClass: [
+                                "glyphicon glyphicon-user"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "user_list_1",
+                                    name: "用户列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "star_manager_1",
+                            name: "会员管理",
+                            iconClass: [
+                                "glyphicon glyphicon-star-empty"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "star_list_1",
+                                    name: "会员列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "role_manager_1",
+                            name: "角色设定",
+                            iconClass: [
+                                "glyphicon glyphicon-check"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "role_list_1",
+                                    name: "角色列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "auth_manager_1",
+                            name: "权限设定",
+                            iconClass: [
+                                "glyphicon glyphicon-lock"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "auth_list_1",
+                                    name: "权限列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "page_manager_1",
+                            name: "界面设置",
+                            iconClass: [
+                                "glyphicon glyphicon-list-alt"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "page_list_1",
+                                    name: "界面列表"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: "lm_menu",
+                    name: "栏目功能",
+                    iconClass: [
+                        "glyphicon glyphicon-th-list",
+                        "glyphicon glyphicon-chevron-right"
+                    ],
+                    subFunList: [
+                        {
+                            id: "sys_log_2",
+                            name: "系统日志",
+                            iconClass: [
+                                "glyphicon glyphicon-align-left"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "log_list_2",
+                                    name: "日志列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "user_manager_2",
+                            name: "用户管理",
+                            iconClass: [
+                                "glyphicon glyphicon-user"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "user_list_2",
+                                    name: "用户列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "star_manager_2",
+                            name: "会员管理",
+                            iconClass: [
+                                "glyphicon glyphicon-star-empty"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "star_list_2",
+                                    name: "会员列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "role_manager_2",
+                            name: "角色设定",
+                            iconClass: [
+                                "glyphicon glyphicon-check"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "role_list_2",
+                                    name: "角色列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "auth_manager_2",
+                            name: "权限设定",
+                            iconClass: [
+                                "glyphicon glyphicon-lock"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "auth_list_2",
+                                    name: "权限列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "page_manager_2",
+                            name: "界面设置",
+                            iconClass: [
+                                "glyphicon glyphicon-list-alt"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "page_list_2",
+                                    name: "界面列表"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: "block_menu",
+                    name: "模块功能",
+                    iconClass: [
+                        "glyphicon glyphicon-calendar",
+                        "glyphicon glyphicon-chevron-right"
+                    ],
+                    subFunList: [
+                        {
+                            id: "sys_log_3",
+                            name: "系统日志",
+                            iconClass: [
+                                "glyphicon glyphicon-align-left"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "log_list_3",
+                                    name: "日志列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "user_manager_3",
+                            name: "用户管理",
+                            iconClass: [
+                                "glyphicon glyphicon-user"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "user_list_3",
+                                    name: "用户列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "star_manager_3",
+                            name: "会员管理",
+                            iconClass: [
+                                "glyphicon glyphicon-star-empty"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "star_list_3",
+                                    name: "会员列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "role_manager_3",
+                            name: "角色设定",
+                            iconClass: [
+                                "glyphicon glyphicon-check"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "role_list_3",
+                                    name: "角色列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "auth_manager_3",
+                            name: "权限设定",
+                            iconClass: [
+                                "glyphicon glyphicon-lock"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "auth_list_3",
+                                    name: "权限列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "page_manager_3",
+                            name: "界面设置",
+                            iconClass: [
+                                "glyphicon glyphicon-list-alt"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "page_list_3",
+                                    name: "界面列表"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: "other_menu",
+                    name: "其他功能",
+                    iconClass: [
+                        "glyphicon glyphicon-fire",
+                        "glyphicon glyphicon-chevron-right"
+                    ],
+                    subFunList: [
+                        {
+                            id: "sys_log_4",
+                            name: "系统日志",
+                            iconClass: [
+                                "glyphicon glyphicon-align-left"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "log_list_4",
+                                    name: "日志列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "user_manager_4",
+                            name: "用户管理",
+                            iconClass: [
+                                "glyphicon glyphicon-user"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "user_list_4",
+                                    name: "用户列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "star_manager_4",
+                            name: "会员管理",
+                            iconClass: [
+                                "glyphicon glyphicon-star-empty"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "star_list_4",
+                                    name: "会员列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "role_manager_4",
+                            name: "角色设定",
+                            iconClass: [
+                                "glyphicon glyphicon-check"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "role_list_4",
+                                    name: "角色列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "auth_manager_4",
+                            name: "权限设定",
+                            iconClass: [
+                                "glyphicon glyphicon-lock"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "auth_list_4",
+                                    name: "权限列表"
+                                }
+                            ]
+                        },
+                        {
+                            id: "page_manager_4",
+                            name: "界面设置",
+                            iconClass: [
+                                "glyphicon glyphicon-list-alt"
+                            ],
+                            subFunList: [
+                                {
+                                    id: "page_list_4",
+                                    name: "界面列表"
+                                }
+                            ]
+                        }
+                    ]
+                },
+            ];
+            $scope.breadList = [];
+            $scope.clickFun = function (funId) {
+                var tempList = [];
+                $scope.funList.forEach(function (fun, idx, list) {
+                    fun.subFunList.forEach(function (subFun, ind, subList) {
+                        if (subFun.id == funId) {
+                            tempList.push({
+                                id: fun.id,
+                                name: fun.name,
+                                isActive: false
+                            });
+                            tempList.push({
+                                id: subFun.id,
+                                name: subFun.name,
+                                isActive: false
+                            });
+                            tempList.push({
+                                id: subFun.subFunList[0].id,
+                                name: subFun.subFunList[0].name,
+                                isActive: true
+                            });
+                        }
+                    });
+                });
+                $scope.breadList = tempList;
+            }
+        }).config(["$routeProvider", function ($routeProvider) {
+            $routeProvider.when("/", {template: $("#main_page")})
+                .when("/user_manager", {templateUrl: "views/user_list.html"})
+                .otherwise({redirectTo:'/'});
+        }]);
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" id="home_label"><span class="glyphicon glyphicon-home"></span>&nbsp;后台管理</a>
+            </div>
+            <div id="navbar" class="collapse navbar-right navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#"><span class="badge" style="background-color: #b92c28">{{message.num}}</span></a></li>
+                    <li><a href="#about"><span class="glyphicon glyphicon-off"></span>&nbsp;注销</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-default" id="left_menu">
+        <div class="navbar-default navbar-collapse" id="menu_col">
+            <ul class="nav nav-sidebar">
+                <li>
+                    <div class="input-group" style="margin: 5px 10px;">
+                        <input type="text" ng-model="searchInput" class="form-control" placeholder="Search"/>
+                        <span class="input-group-btn">
+                            <button type="button" ng-click="searchFun()" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                </li>
+                <li ng-repeat="fun in funList">
+                    <a href="#{{fun.id}}" data-toggle="collapse"><span class="{{fun.iconClass[0]}}"></span>&nbsp;{{fun.name}} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+                    <ul class="nav collapse" id="{{fun.id}}">
+                        <li ng-repeat="subFun in fun.subFunList" ng-click="clickFun(subFun.id)"><a href="#!/{{subFun.id}}"><span class="{{subFun.iconClass[0]}}"></span>&nbsp;{{subFun.name}}</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid" id="right_content">
+
+        <div class="breadcrumb ">
+            <li ng-repeat="bread in breadList" class="{{bread.isActive ? 'active' : ''}}">
+                <span ng-switch="{{bread.isActive}}">
+                    <span ng-switch-when="true">{{bread.name}}</span>
+                    <span ng-switch-when="false"><a href="#{{bread.id}}">{{bread.name}}</a></span>
+                </span>
+            </li>
+        </div>
+
+        <div ng-view></div>
+        <div id="main_page">
+            <h2>This is the welcome page!</h2>
+        </div>
+
+    </div>
+</body>
+</html>

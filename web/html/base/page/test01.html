@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>click event.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	
+	<script>
+		window.onload = function() {
+			
+			var oBtn = document.getElementsByTagName("button")[0];
+			var oDiv = document.getElementsByTagName("div")[0];
+			
+			oBtn.onclick = function(e) {
+				var oEvent = e||event;
+				oDiv.style.display = "block";
+				//取消事件冒泡
+				oEvent.cancelBubble = true;
+			};
+			
+			document.onclick = function() {
+				oDiv.style.display= "none";
+			};
+			
+			//鼠标移动
+			document.onmousemove = function(e) {
+				var oEvent = e||event;
+				var oDiv = document.getElementsByTagName("div")[1];
+				
+				var pos = getPos(oEvent);
+				oDiv.style.left = pos.x + "px";
+				oDiv.style.top = pos.y + "px";
+			};
+			
+		};
+		function getPos(e) {
+			
+			var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+			var scrollLeft = document.documentElement.scrollLeft||document.body.scrollLeft;
+			
+			return {x: e.clientX + scrollLeft, y: e.clientY + scrollTop};
+		}
+	</script>
+	
+  </head>
+  	
+  <body>
+  	<button type="button">点击</button>
+  	<div style="width: 200px; height: 300px; background: gray; display: none;"></div>
+  	<div style="width: 100px; height: 100px; background: red; position: absolute;"></div>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS 服务(Service)</title>
+
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/angular/angular.min.js"></script>
+</head>
+<body>
+
+    <!--
+        $location: window.location, 方法有 $location.absUrl()
+        $http: jquery.ajax 方法有 $http.get
+        $timeout: window.setTimeout 也是有区别的
+        $interval: window.setInterval 也是有区别的
+    -->
+
+    <!--<div ng-app="myApp" ng-controller="myCtrl">
+        创建自定义服务:
+        {{hex}}
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.service('hexafy', function() {
+            this.myFunc = function (x) {
+                return x.toString(16);
+            }
+        });
+        app.controller('myCtrl', function($scope, hexafy) {
+            $scope.hex = hexafy.myFunc(255);
+        });
+    </script>-->
+
+    <!--过滤器中，使用自定义服务-->
+    <!--<div ng-app="myApp" ng-controller="myCtrl">
+        <p>在获取数组 [255, 251, 200] 值时使用过滤器:</p>
+
+        <ul>
+            <li ng-repeat="x in counts">{{x | myFormat}}</li>
+        </ul>
+
+        <p>过滤器使用服务将10进制转换为16进制。</p>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.service('hexafy', function() {
+            this.myFunc = function (x) {
+                return x.toString(16);
+            }
+        });
+        app.filter('myFormat',['hexafy', function(hexafy) {
+            return function(x) {
+                return hexafy.myFunc(x);
+            };
+        }]);
+        app.controller('myCtrl', function($scope) {
+            $scope.counts = [255, 251, 200];
+        });
+    </script>-->
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+
+    </div>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller('myCtrl', testC);
+        function testC(scope, rd){
+            console.log(rd);
+            scope.getData = function(){
+                alert('name：'+rd.name+'   value：'+rd.value);
+            }
+        }
+        app.service("remoteData", function () {
+            this.name = "n";
+            this.value = "v";
+        });
+        testC.$inject = ['$scope','remoteData'];
+        //        app.controller("myCtrl", function ($scope, remoteData) {
+        //            console.log(remoteData);
+        //        });
+        //        app.service("remoteData", function () {
+        //            this.name = "n";
+        //            this.value = "v";
+        //        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>image.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<link rel="shortcut icon"  href="../img/ooopic_1438825205.ico" type="image/x-icon">
+  </head>
+  
+  <body link="orange" alink="greed" vlink="red">
+  
+  
+  	
+    <h4>书签</h4>
+    <a href="#1">文字图片</a>
+    <a href="#2">美女</a>
+    <br><br><br><br><br><br><br><br>
+    <h5>img 的 alt 属性表示： 当图片没有显示出来时的一个提示信息； title 属性表示： 将鼠标放在图片上的提示信息,align:默认 bottom</h5>
+    <a name="1"></a>
+    <img alt="这是一个美女" style="cursor: pointer;" src="/img/girl.jpg" title="This is a beautiful girl"><br>
+    <img alt="这是一个美女" style="cursor: pointer;" src="../img/girl.jpg" align="left" height="150px;" width="100px;" title="This is a beautiful girl">
+         在的img标签有两个属性分别为alt和title，对于很多初学者而言对这两个属性的正确使用都还抱有迷惑，当然这其中一部分原因也是ie浏览器所导致的。正确的使用这两个属性除了可以提高图片的搜索能力外，在用户体验上也是很有帮助，下面就来说说alt和title的概念与正确使用。 
+	用来介绍图片的描述的，通俗点说就是把鼠标放在图片上一段时间，就会显示“<img alt="xxx">”alt属性里显示的内容。通常是配合“<img alt="xxx" style="cursor:pointer">”style属性来使用的，后面那个属性指示的是，鼠标放在图片上会变成手型。
+	alt 
+	此属性的实质作用是图片在无法正确显示的时候起到文本替代的作用,不过在IE6下还起到了title的作用（鼠标放上去后的文字提示），IE的实现方法实际上是错误的。如果想在鼠标滑过时显示提示,应该用title属性。由于错误的引导，很多初学者就在img标签内只加了alt属性。所以这里再次表扬一记FF！               
+	title 
+	鼠标滑过时显示的文字提示，用户体验上很重要。当然不必要所有的img标签都加此属性，比方说logo这样比较重要或者说用户会体验到的图片内容建议一定要加此属性。 
+    
+    <br><br><br><br><br><br><br><br>
+    <a name="2"></a>
+    <img alt="这是一个美女" src="../img/girl.jpg" align="left" height="400px;" width="300px;" usemap="#grilMap">
+    <map name="grilMap">
+    	<!-- <area> 标签的 coords 属性定义了客户端图像映射中对鼠标敏感的区域的坐标。坐标的数字及其含义取决于 shape 属性中决定的区域形状。可以将客户端图像映射中的超链接区域定义为矩形、圆形或多边形等。
+			下面列出了每种形状的适当值：
+			圆形：shape="circle"，coords="x,y,z"
+				这里的 x 和 y 定义了圆心的位置（"0,0" 是图像左上角的坐标），r 是以像素为单位的圆形半径。
+			多边形：shape="polygon"，coords="x1,y1,x2,y2,x3,y3,..."
+				每一对 "x,y" 坐标都定义了多边形的一个顶点（"0,0" 是图像左上角的坐标）。定义三角形至少需要三组坐标；高纬多边形则需要更多数量的顶点。
+				多边形会自动封闭，因此在列表的结尾不需要重复第一个坐标来闭合整个区域。
+			矩形：shape="rectangle"，coords="x1,y1,x2,y2"
+				第一个坐标是矩形的一个角的顶点坐标，另一对坐标是对角的顶点坐标，"0,0" 是图像左上角的坐标。请注意，定义矩形实际上是定义带有四个顶点的多边形的一种简化方法。 -->
+    	<area alt="咪咪" shape="rect" coords="180,150,220,200" href="#">
+    </map>
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+    <br><br>1
+  </body>
+</html>

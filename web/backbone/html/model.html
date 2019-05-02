@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Backbone hello</title>
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/underscore-min.js"></script>
+    <script src="../js/backbone-min.js"></script>
+
+    <script>
+        var _obj = {
+            title : "title info",
+            description : "desc info"
+        };
+        //console.log(_obj.title);
+        //console.log(_obj.description);
+
+        /*
+        var ToDoItem = Backbone.Model.extend({
+
+        });
+
+        //var toDoItem = new ToDoItem(_obj);
+        var toDoItem = new ToDoItem({
+            title : "title info",
+            description : "desc info"
+        });
+        console.log(toDoItem)// n {cid: "c1", attributes: Object, _changing: false, _previousAttributes: Object, changed: Object…}
+        console.log(toDoItem.attributes.title);//"title info"
+        console.log(toDoItem.attributes.description);//"desc info"
+        console.log(toDoItem.attributes["title"]);//"title info"
+        console.log(toDoItem.get("title"));//"title info"
+        console.log(toDoItem.set("title", "changed title info"));//n {cid: "c1", attributes: Object, _changing: false, _previousAttributes: Object, changed: Object…}
+        console.log(toDoItem.get("title"));//"changed title info"
+        console.log(toDoItem.toJSON());//Object {title: "changed title info", description: "desc info"}
+        console.log(toDoItem.toJSON().title);//"title info"
+        toDoItem.toJSON().title = "changed title info";//这样不会出错，但不会改变原有值，这样只会修改内存中有值，不会修改页面，若需要修改页面，则需要再一次调用 render 方法
+        */
+/*
+
+        var ToDoItem = Backbone.View.extend({ //创建一个对象，并继承 View 对象
+//            id : "view_1",
+//            tagName : "li",
+//            className : "css_class",
+//            attributes : { //只有上面三个属性是内置的，其他的所有属性都需要写在 attribute 属性里面
+//                style : "color: red;"
+//            }
+            //el : "#header" //还可以通过这样来实例化一个页面固有的元素
+        });
+        var toDoItem = new ToDoItem({
+            el : "#header" //还可以通过这样来实例化一个页面固有的元素//也可以这样写
+        });
+
+        var toDoItem = new ToDoItem();
+        console.log(toDoItem);
+/!*
+ n {cid: "view1", $el: n.fn.init[1], el: li#view_1.css_class}
+ $el:n.fn.init[1]
+     0:li#view_1.css_class
+     context:li#view_1.css_class
+     length:1
+     __proto__:Object[0]
+ cid:"view1"
+ el:li#view_1.css_class
+ __proto__:e.View
+*!/
+        console.log(toDoItem.length); //undefined
+        console.log(toDoItem.toString()); //[object Object]
+        console.log(toDoItem.valueOf()); //n {cid: "view1", $el: n.fn.init[1], el: div}
+        console.log(toDoItem.$el) //[<div></div>] 默认为 div 节点，是一个数组
+        console.log(toDoItem.$el.length)//1
+
+*/
+/*
+    var ToDoItemModel = Backbone.Model.extend({
+
+    });
+    var toDoItemModel = new ToDoItemModel({
+        title : "title info",
+        desc : "description info"
+    });
+    toDoItemModel.on("change",function(){ //需要外部事件来触发，比如 set 方法
+        console.log(this.changed);//当前改变的属性
+        if (this.hasChanged("title")) {
+            console.log("title had been changed")
+        } else {
+            console.log("title had not been changed")
+        }
+    });
+    toDoItemModel.on("change:title", function(){
+        //..
+        //只监听 title 属性
+    })
+
+    //toDoItemModel.trigger("change");//监听并直接触发当前事件，不需要外部触发
+
+    toDoItemModel.on("abc", function(){//可以定义自己的一些事件
+        console.log("abc had been triggered");
+    })
+    toDoItemModel.trigger("abc");//触发自己定义的一些事件
+
+    toDoItemModel.off();//取消事件，如果没有传参数，则取消该对象的所有事件
+
+    toDoItemModel.once("change",function(){ //只监听一次
+        //..
+    });
+    var toDoItemModel2 = new ToDoItemModel();
+    toDoItemModel2.listenTo(toDoItemModel, "change", function(){ //通过一个对象监听另外一个对象
+        //....
+        // this 指 toDoItemModel2
+    })*/
+
+
+
+    </script>
+
+</head>
+<body>
+    <h1>2222</h1>
+</body>
+<script>
+    /*var ToDoItemModel = Backbone.Model.extend({
+
+    });
+    var toDoItemModel = new ToDoItemModel({
+        title : "title info",
+        "desc" : "description info"
+    });
+    var ToDoItemView = Backbone.View.extend({
+        id : function(){
+            return this.model.get("title");
+        },
+        tagName : "p",
+        render:function(){
+            this.$el.html("<span>" + this.model.get("desc")+ "</span>");
+            return this;
+        }
+    });
+    var toDoItemView = new ToDoItemView({
+        model : toDoItemModel
+    });
+    toDoItemView.render().$el.appendTo($("body"));//需要在外部自己调用*/
+/*
+
+    var ToDoItemModel = Backbone.Model.extend({
+
+    });
+    var toDoItemModel = new ToDoItemModel({
+        id : "id info",
+        className : "classInfo",
+        title : "title info",
+        desc : "description info"
+    });
+    var ToDoItemView = Backbone.View.extend({
+        id : function(){
+            console.log(1);
+            return this.model.get("id");
+        },
+        tagName : "p",
+        className : function(){
+            return this.model.get("className");
+        },
+        // initialize() 方法会在 id,tagName,className 这三个属性之后执行
+        initialize : function () {
+            console.log(2);
+            //this.id = 123; //这样不行
+            //this.id(); //调用当前 id 的方法
+            this.listenTo(this.model, "change", function(){
+                console.log("The views find the model changed")
+            })
+        },
+        render : function(){
+            this.$el.html("<span>" + this.model.get("desc") + "</span>");
+            return this;
+        }
+    });
+    var toDoItemView = new ToDoItemView({
+        model : toDoItemModel
+    });
+    toDoItemView.render().$el.appendTo($("body"));
+*/
+/*
+
+    var ToDoItemModel = Backbone.Model.extend({
+
+    });
+    var toDoItemModel = new ToDoItemModel({
+        id : "id info",
+        className : "classInfo",
+        title : "title info",
+        desc : "description info"
+    });
+    var ToDoItemView = Backbone.View.extend({
+        id : function(){
+            console.log(1);
+            return this.model.get("id");
+        },
+        tagName : "p",
+        className : function(){
+            return this.model.get("className");
+        },
+        // initialize() 方法会在 id,tagName,className 这三个属性之后执行
+        initialize : function () {
+            console.log(2);
+            //this.id = 123; //这样不行
+            //this.id(); //调用当前 id 的方法
+            this.listenTo(this.model, "change", this.render);//监听改变是，直接使用 render 作为回调函数
+        },
+        render : function(){
+            this.$el.html("<span>" + this.model.get("desc") + "</span>");
+            return this;
+        }
+    });
+    var toDoItemView = new ToDoItemView({
+        model : toDoItemModel
+    });
+    toDoItemView.render().$el.appendTo($("body"));
+*/
+
+/*
+
+    var ToDoItemModel = Backbone.Model.extend({
+
+    });
+    var toDoItemModel = new ToDoItemModel({
+        title : "title info",
+        desc : "description info"
+    });
+    var toDoItemModel2 = new ToDoItemModel({
+        title : "title2 info",
+        desc : "description2 info"
+    });
+    var ToDoItemView = Backbone.View.extend({
+        tagName : "div",
+        className : "item-class",
+        events : {
+            "click p,button" : "clickDivOrBtn"//通过 P/Button 标签删除
+        },
+        initialize : function(){
+            this.listenTo(this.model, "change", this.render);
+            this.listenTo(this.model, "destroy", this.remove);//添加 destroy 事件监听
+        },
+        render : function(){
+            var model = this.model.toJSON();
+            this.$el.html("<p>" + model.title + "</p><span>" + model.desc + "</span><br><button>remove</button>");
+            return this;
+        },
+        clickDivOrBtn : function(){
+            this.model.destroy();
+        }
+    });
+    var toDoItemView = new ToDoItemView({
+        model : toDoItemModel
+    });
+    var toDoItemView2 = new ToDoItemView({
+        model : toDoItemModel2
+    });
+    toDoItemView.render().$el.appendTo($("body"));
+    toDoItemView2.render().$el.appendTo($("body"));
+*/
+    //js list
+    var list = [{
+        title : "title info1",
+        desc : "description info"
+    },
+    {
+        title : "title1 info2",
+        desc : "description info"
+    },
+    {
+        title : "title1 info2",
+        desc : "description info"
+    }];
+    var AList = Backbone.Collection.extend({
+
+    });
+    //var aList = new AList(); //空数组
+    var aList = new AList(list);
+    console.log(aList.toJSON()); //返回一个 js 的数组
+    console.log(aList.size());//数据长度
+    console.log(aList.length);//数据长度
+    console.log(aList.models.length);//数据长度
+
+    //查找
+    var findObj = aList.find(function(model){//遍历所有数组，找一个对象
+        console.log(model);
+        console.log(model.get("title"));
+        var mod = model.toJSON();
+        console.log(mod.title);
+        return mod.title == "title info1";
+    })
+    console.log(findObj);//返回 title == "title info1" 的对象
+
+    //过滤
+    var filterObj = aList.filter(function(model){//查找多个对象
+        return model.get("title") == "title1 info2";
+    })
+    console.log(filterObj);
+
+    //each 遍历 -- 没有返回值
+    var eachObj = aList.each(function(model){
+        console.log(model);
+    });
+    console.log(eachObj);
+
+    //every 每一个都必须满足
+    var everyBol = aList.every(function(model){
+        return model.get("title") != null;
+    });
+    console.log(everyBol);
+    aList.add({
+        title : null,
+        desc : "description info"
+    });
+    var everyBol = aList.every(function(model){
+        return model.get("title") != null;
+    });
+    console.log(everyBol);
+
+    //some 只要有一个就满足
+    var someBol = aList.some(function(model){
+        return model.get("title") == null;
+    });
+    console.log(someBol);
+
+    //pluck 查找数组中该属性的所有值 组成一个 Js 数组
+    var pluckArr = aList.pluck("title");//传入一个属性
+    console.log(pluckArr);
+
+    //map 相当于 each ，但有返回值，返回一个数组
+    var mapArr = aList.map(function(model){
+        return model.get("title");
+    });
+    console.log(mapArr);
+
+    //reduce
+    var reduceStr = aList.reduce(function(memo, model, index){
+        console.log(memo);
+        console.log(model);
+        console.log(index);
+        return memo + "," + model.get("title");
+    });
+    console.log(reduceStr);
+
+</script>
+</html>

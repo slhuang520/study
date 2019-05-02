@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ready Notice</title>
+    <script src="../jquery-2.1.3.min.js"></script>
+    <script>
+        function onload() {
+            console.log('body onload attr!');
+        }
+        $(function () {
+            console.log('JQuery onload!');
+            console.log($('h2,h3,h4').each(function (idx, dom) {
+                console.log(dom);
+            }));
+            $("div").each(function(i){
+                if(i === 1) {
+                    return true;
+                }
+                if (i === 3) {
+                    return false;
+                }
+                console.log(i);
+            });
+
+            $("button").click(function () {
+                $("#div").animate({left:'+=200px'}, 2000);
+                $("#div").animate({top:'0px'}, 600);
+                $("#div").queue(function () {
+                    $(this).toggleClass("red");
+                    $(this).dequeue();
+                });
+                $("#div").animate({left:'10px', top:'30px'}, 700);
+            });
+        });
+        $(document).ready(function () {
+            console.log('JQuery document ready event');
+        });
+    </script>
+
+    <style>
+        div { margin:3px; width:50px; position:absolute;
+            height:50px; left:10px; top:30px;
+            background-color:yellow; }
+        div.red { background-color:red; }
+    </style>
+</head>
+<body onload="onload()">
+    <h1>
+        JQuery onload | JQuery document ready event | body onload attr
+        <br>
+        三者之间的调用顺序验证。
+        <br>
+        结果是：
+        <br>
+        $();是$(document).ready();的简写形式，同时出现时，两个都会调用，谁写在前，就会被先行调用
+        <br>
+        JQuery onload!
+        <br>
+        JQuery document ready event
+        <br>
+        body onload attr!
+    </h1>
+    <h2>h2</h2>
+    <h3>h3</h3>
+    <h4>h4</h4>
+    <div id="div1">1</div>
+    <div id="div2">2</div>
+    <div id="div3">3</div>
+    <div id="div4">4</div>
+    <div id="div5">5</div>
+
+    <button>Start</button>
+    <div id="div"></div>
+</body>
+</html>

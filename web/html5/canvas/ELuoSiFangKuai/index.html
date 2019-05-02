@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>俄罗斯方块</title>
+    <link rel="stylesheet" href="css/index.css">
+    <style type="text/css">
+        #setting_container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            margin-left: -196px;
+            width: 392px;
+            height: 600px;
+            background-color: rgba(255, 255, 255, 0.3);
+            display: none;
+        }
+        #setting_container main {
+            position: relative;
+            width: 392px;
+            height: 160px;
+            top: 50%;
+            margin-top: -150px;
+            background-color: #000;
+            padding-top: 140px;
+        }
+    </style>
+</head>
+<body>
+    <article id="start_container" class="container">
+        <p>
+            <button id="start_btn">开始游戏</button>
+        </p>
+        <p>
+            <button id="setting_btn">设置</button>
+        </p>
+    </article>
+    <article id="game_container" class="container">
+        <aside id="left_panel">
+            <header id="timer_panel" class="bottom_line">
+                <div class="panel_header">
+                    当前时间
+                </div>
+                <div class="panel_body">
+                    <canvas id="canvas_timer"></canvas>
+                </div>
+            </header>
+            <section id="help_panel" class="bottom_line">
+                <div class="panel_body">
+                    <p>↑翻转方块</p>
+                    <p>↓加速下落</p>
+                    <p>→向右移动</p>
+                    <p>←向左移动</p>
+                </div>
+            </section>
+            <footer id="level_panel">
+                <div class="panel_header">
+                    当前级别
+                </div>
+                <div class="panel_body">
+                    <canvas id="canvas_level"></canvas>
+                </div>
+            </footer>
+        </aside>
+        <main id="main_panel">
+            <canvas id="canvas_game"></canvas>
+        </main>
+        <aside id="right_panel">
+            <header id="next_panel" class="bottom_line">
+                <div class="panel_header">
+                    下一个方块
+                </div>
+                <div class="panel_body">
+                    <canvas id="canvas_next_shape"></canvas>
+                </div>
+            </header>
+            <section id="setting_panel" class="bottom_line">
+                <div class="panel_body">
+                    <button id="game_pause_btn">暂停</button><br/><button id="game_setting_btn">设置</button>
+                </div>
+            </section>
+            <footer id="score_panel">
+                <div id="current_score" class="bottom_line">
+                    <div class="panel_header">
+                        当前得分
+                    </div>
+                    <div class="panel_body">
+                        <canvas id="canvas_score"></canvas>
+                    </div>
+                </div>
+                <div id="max_score">
+                    <div class="panel_header">
+                        最高得分
+                    </div>
+                    <div class="panel_body">
+                        <canvas id="canvas_max_score"></canvas>
+                    </div>
+                </div>
+            </footer>
+        </aside>
+    </article>
+    <article id="setting_container">
+        <main>
+            <label for="close_sound_chk">关闭声音</label>
+            <input type="checkbox" id="close_sound_chk">
+            <br/>
+            <button id="close_btn">关闭</button>
+        </main>
+    </article>
+    <script src="vendor/howler.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/Canvas.js"></script>
+    <script src="js/Score.js"></script>
+    <script src="js/Timer.js"></script>
+    <script src="js/Level.js"></script>
+    <script src="js/Board.js"></script>
+    <script src="js/NextShape.js"></script>
+    <script src="js/MaxScore.js"></script>
+    <script src="js/Tetris.js"></script>
+    <script src="js/ResourceManager.js"></script>
+    <script src="js/Block.js"></script>
+    <script src="js/Shape.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/Keyboard.js"></script>
+</body>
+</html>

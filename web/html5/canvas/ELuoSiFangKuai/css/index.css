@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    text-align: center;
+    background-color: #000;
+    color: #fff;;
+}
+body .container {
+    height: 600px;
+    border: 1px solid green;
+    margin: 20px auto;
+    position: relative;
+}
+#start_container {
+    width: 392px;
+    background-image: url(../img/bg_start.png);
+    background-size: cover;
+    padding-top: 270px;
+    box-sizing: border-box;
+}
+#start_container p {
+    padding-top: 50px;
+}
+#start_container button {
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    font-family: 微软雅黑;
+    border: 0;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    background-color: lightblue;
+}
+#start_container button:hover {
+    background-color: lightsalmon;
+}
+#game_container {
+    width: 592px;
+    display: none;
+}
+#left_panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 600px;
+}
+#right_panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 600px;
+}
+#main_panel {
+    position: absolute;
+    top: 0;
+    left: 100px;
+    width: 390px;
+    height: 600px;
+    border-left: solid 1px green;
+    border-right: solid 1px green;
+}
+#game_container .bottom_line {
+    border-bottom: solid 1px green;
+}
+#game_container .panel_header {
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    color: #fff;
+    background-color: lightsalmon;
+}
+#game_container .panel_body {
+    line-height: 70px;
+}
+#timer_panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100px;
+    width: 100%;
+}
+#help_panel {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    height: 399px;
+    width: 100%;
+}
+#level_panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100px;
+    width: 100%;
+}
+#next_panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100px;
+    width: 100%;
+}
+#setting_panel {
+    position: absolute;
+    top: 100px;
+    right: 0;
+    height: 299px;
+    width: 100%;
+}
+#score_panel {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 200px;
+    width: 100%;
+}
+#current_score {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 99px;
+    width: 100%;
+}
+#max_score {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100px;
+    width: 100%;
+}
+#help_panel .panel_body {
+    line-height: 30px;
+    margin-top: 130px;
+}
+#setting_panel .panel_body {
+    line-height: 30px;
+    margin-top: 110px;
+}

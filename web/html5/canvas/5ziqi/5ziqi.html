@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>五子棋</title>
+    <style type="text/css">
+        body {
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        #main_canvas {
+            margin-top: 20px;
+            background-image: url(images/bak.jpg);
+            background-size: cover;
+        }
+    </style>
+    <script type="text/javascript">
+
+        // 记录已经下的子
+        var maps = new Array(15);
+        for (var i = 0; i < 15; i++) {
+            maps[i] = new Array(15);
+            for (var j = 0; j < 15; j++) {
+                maps[i][j] = 0;
+            }
+        }
+
+        // 初始化黑子与白子
+        var black = new Image();
+        var white = new Image();
+        black.src = "images/black.png";
+        white.src = "images/white.png";
+
+        var canvas, ctx, isBlack = false, winner = 0;
+
+        /**
+         * 初始化 canvas 对象
+         */
+        function init() {
+            canvas = document.getElementById("main_canvas");
+            ctx = canvas.getContext("2d");
+            drawGrid();
+        }
+
+        /**
+         * 画底部的格子
+         */
+        function drawGrid() {
+            ctx.strokeStyle = "#fff";
+            for (var i = 0; i < 15; i++) {
+                for (var j = 0; j < 15; j++) {
+                    ctx.strokeRect(i * 40, j * 40, 40, 40);
+                }
+            }
+        }
+
+        /**
+         * 下棋
+         * @param e
+         */
+        function play(e) {
+
+            if (winner) {
+                showWin(winner);
+                return;
+            }
+
+            var baseLeft = (window.innerWidth - 600) / 2;
+            var baseTop = 20;
+            var x = e.clientX - baseLeft;
+            var y = e.clientY - baseTop;
+
+            var row = parseInt((x + 20) / 40);
+            var col = parseInt((y + 20) / 40);
+
+            if (maps[row][col]) {
+                alert("当前格子已经有子了！");
+                return;
+            }
+
+            if (isBlack) {
+                ctx.drawImage(black, (row * 40) -  20, (col * 40) - 20);
+
+                isBlack = false;
+
+                // 记录当前下子的位置
+                maps[row][col] = 1;
+
+                // 判断是否已经赢了
+                isWin(1, row, col);
+            } else {
+                ctx.drawImage(white, (row * 40) - 20, (col * 40) - 20);
+
+                isBlack = true;
+                maps[row][col] = 2;
+                isWin(2, row, col);
+            }
+
+            /**
+             * 判断是否赢了
+             *
+             * @param player
+             * @param row
+             * @param col
+             */
+            function isWin(player, row, col) {
+
+                var baseRow = row,
+                    baseCol = col,
+                    total = 1;
+
+                // 水平向右
+                while(row < 15 && maps[row + 1][col] === player && total <= 5) {
+                    total++;
+                    row++;
+                }
+                if (tellWin(player, total)) {
+                    return;
+                }
+
+                row = baseRow;
+                col = baseCol;
+                total = 1;
+                // 水平向左
+                while(row > 1 && maps[row - 1][col] === player && total <= 5) {
+                    total++;
+                    row--;
+                }
+                if (tellWin(player, total)) {
+                    return;
+                }
+
+                row = baseRow;
+                col = baseCol;
+                total = 1;
+                // 垂直向下
+                while(col < 15 && maps[row][col + 1] === player && total <= 5) {
+                    total++;
+                    col++;
+                }
+                if (tellWin(player, total)) {
+                    return;
+                }
+
+                row = baseRow;
+                col = baseCol;
+                total = 1;
+                // 垂直向上
+                while(col > 1 && maps[row][col - 1] === player && total <= 5) {
+                    total++;
+                    col--;
+                }
+                if (tellWin(player, total)) {
+                    return;
+                }
+
+                row = baseRow;
+                col = baseCol;
+                total = 1;
+                // 左上
+                while(row > 1 && col > 1 && maps[row - 1][col - 1] === player && total <= 5) {
+                    total++;
+                    row--;
+                    col--;
+                }
+                if (tellWin(player, total)) {
+                    return;
+                }
+
+                row = baseRow;
+                col = baseCol;
+                total = 1;
+                // 右上
+                while(row < 15 && col > 1 && maps[row + 1][col - 1] === player && total <= 5) {
+                    total++;
+                    row++;
+                    col--;
+                }
+                if (tellWin(player, total)) {
+                    return;
+                }
+
+                row = baseRow;
+                col = baseCol;
+                total = 1;
+                // 右下
+                while(row < 15 && col < 15 && maps[row + 1][col + 1] === player && total <= 5) {
+                    total++;
+                    row++;
+                    col++;
+                }
+                if (tellWin(player, total)) {
+                    return;
+                }
+
+                row = baseRow;
+                col = baseCol;
+                total = 1;
+                // 右下
+                while(row > 1 && col < 15 && maps[row - 1][col + 1] === player && total <= 5) {
+                    total++;
+                    row--;
+                    col++;
+                }
+                if (tellWin(player, total)) {
+                    return;
+                }
+            }
+
+            /**
+             * 指明是否赢了
+             *
+             * @param player
+             * @param total
+             * @returns {boolean}
+             */
+            function tellWin(player, total) {
+                if (total == 5) {
+                    showWin(player);
+                    winner = player;
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            /**
+             * 指出谁赢了
+             *
+             * @param winner
+             */
+            function showWin(winner) {
+                if (winner === 1) {
+                    alert("黑子赢了！");
+                } else {
+                    alert("白子赢了！");
+                }
+            }
+        }
+    </script>
+</head>
+<body onload="init()">
+    <canvas id="main_canvas" width="600" height="600" onclick="play(event);"></canvas>
+</body>
+</html>

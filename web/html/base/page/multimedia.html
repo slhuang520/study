@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>multimedia.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+    <!-- css 样式 -->
+    <style type="text/css">
+    	/* 标记名称定义类型 */
+    	p,div {
+    		color: green;
+    	}
+    	/* class 定义类型 */
+    	.css1 {
+    		color: red;
+    		font-size: 12px;
+    	}
+    	/* id 定义类型 */
+    	#id,#id2 {
+    		color: orange;
+    	}
+    </style>
+    <!-- js 脚本 -->
+	<script type="text/javascript">
+		window.onload = function() {
+			alert("欢迎光临！");
+			//prompt("请注意言行");
+		};
+		
+	</script>
+  </head>
+  
+  <body>
+  	<!-- 背景音乐
+    <bgsound src="../mp3/kiss the rain.mp3">
+     -->
+    <h3>html4 --- 是用以下方式</h3>
+    <h4>flash</h4>
+    <embed src="../vadio/flash42.swf" width="400" height="300">
+    <br/><br/>
+    <hr/>
+    
+    <object data="../vadio/flash42.swf" type="application/x-shockwave-flash" width="400" height="200">
+    	<!-- 真正的路径 -->
+    	<param name="movie" value="../vadio/flash42.swf">
+    	<!-- 其他属性:比如背景透明(需要该 flash 不能有底层画布) -->
+    	<param name="wmode" value="transparent">
+    </object>
+    <br><br>
+    <hr/>
+    
+    <!-- 
+    <object data="../vadio/emo[1].flv" type="application/x-shockwave-flv" width="400" height="300">
+    	<param name="movie" value="../vadio/emo[1].flv">
+    </object>
+     -->
+     
+     <!-- 显示有音乐部件-->
+     <h4>mp3</h4>
+     <embed src="../mp3/kiss the rain.mp3" type="audio/mp3" autostart="false" loop="2" hidden="true">
+     <object data="../mp3/kiss the rain.mp3" type="audio/mp3" autoplay="autoplay">
+         <param name="src" value="../mp3/kiss the rain.mp3">
+         <!--param name="autoplay" value="false"-->//这种不行
+     </object>
+     <br><br>
+    <hr/>
+     
+     <h4>视频</h4>
+     <object data="../vadio/Wildlife.wmv">
+     	<param name="src" value="../vadio/Wildlife.wmv">
+     	<param name="autoplay" value="false">
+     </object>
+     <br>
+    <hr/>
+     
+     <h5>
+     	behavior:scroll 表示  从右向左移动； slide 表示从右向左停止; alternate 表示两边移动<br>
+     	direction: left;right;up;down 滚动方向<br>
+     	bgcolor:背景色<br>
+     	scrollamount: 速度<br>
+     	vspace: 上下两册的间距<br>
+     	hspace: 左右两册的间距
+     </h5>
+     <marquee onmousemove="this.stop();" onmouseout="this.start();" behavior="alternate" direction="right" bgcolor="green" scrollamount="2" hspace="120" vspace="20">我是活动文字，我是活动文字，我可以动</marquee>
+     
+    <hr/>
+     
+     
+     <br><br><br>
+     <h3>html5 -- 是用以下方式： 所有的单标签都应该关闭，所有的单属性都应该等于自身 </h3>
+     <audio controls="controls">
+		<!-- <source src="song.ogg" type="audio/ogg">
+		<source src="song.m4a" type="audio/mpeg"> -->
+		<source src="../mp3/kiss the rain.mp3" type="audio/mpeg"></source>
+		你的浏览器不支持html5的audio标签
+	</audio>
+     
+     
+  </body>
+</html>
