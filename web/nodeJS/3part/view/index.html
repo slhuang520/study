@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+index
+<div id="msg"></div>
+<button class="btn btn-danger" id="getText">GetText</button>
+<button class="btn btn-danger" id="getJson">GetJson</button>
+<button class="btn btn-danger" id="postJson">PostJson</button>
+<button class="btn btn-danger" id="getAll">GetAll</button>
+<button class="btn btn-danger" id="postAll">PostAll</button>
+<button class="btn btn-danger" id="getByParam">Get路由传参</button>
+<button class="btn btn-danger" id="postByParam">Post Body传参</button>
+
+<script src="components/jquery/dist/jquery.min.js"></script>
+<script>
+    $("#getText").click(function (e) {
+        $.get("/a", function (res) {
+            console.log(res);
+            $("#msg").text(res);
+        });
+    });
+    $("#getJson").click(function (e) {
+        $.get("/b", function (res) {
+            console.log(res);
+            $("#msg").text(res.name + " : " + res.age);
+        });
+    });
+    $("#postJson").click(function (e) {
+        $.post("/b", function (res) {
+            console.log(res);
+            $("#msg").text(res.name + " : " + res.age);
+        });
+    });
+    $("#getAll").click(function (e) {
+        $.get("/c", function (res) {
+            console.log(res);
+            $("#msg").text(res.name + " : " + res.age);
+        });
+    });
+    $("#postAll").click(function (e) {
+        $.post("/c", function (res) {
+            console.log(res);
+            $("#msg").text(res.name + " : " + res.age);
+        });
+    });
+    $("#getByParam").click(function (e) {
+        $.get("/d/Jim", function (res) {
+            console.log(res);
+            $("#msg").text(res.name + " : " + res.age);
+        });
+    });
+    $("#postByParam").click(function (e) {
+        $.post("/d", {name: "Jim"}, function (res) {
+            console.log(res);
+            $("#msg").text(res.name + " : " + res.age);
+        });
+    });
+</script>
+</body>
+</html>
