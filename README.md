@@ -45,6 +45,6 @@ All of this technology is very simple, and I just write some demo for them to ha
   Learn how to use webpack to build the ES6 grammer.
   
 #1.8 nodeJS
-  Learn NodeJS's basic grammer and how to use the 3-part constructor express of the nodeJS.
+  Learn NodeJS's basic grammer and how to use the 3-part constructor express of the nodeJS.<br>
   Should run [npm install] after download this demo.
   
