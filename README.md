@@ -11,6 +11,7 @@ All of this technology is very simple, and I just write some demo for them to ha
   5.html5
   6.javascript
   7.es6
+  8.nodeJS
   
 #1.1 AngularJS<br>
   Learn how to use the base directives or components of it, and then write a simple demo of the background management system.
@@ -39,7 +40,11 @@ All of this technology is very simple, and I just write some demo for them to ha
   Learn the base grammer of it, how to use the lazy function, what is jquery and how it was packaged.<br>
   Learn how to use the extJS.
 
-#1.6 es6<br>
+#1.7 es6<br>
   Learn how to build the base develop enviroment, and build the enviroment with different environment(developing, test, product).<br>
   Learn how to use webpack to build the ES6 grammer.
+  
+#1.8 nodeJS
+  Learn NodeJS's basic grammer and how to use the 3-part constructor express of the nodeJS.
+  Should run [npm install] after download this demo.
   
