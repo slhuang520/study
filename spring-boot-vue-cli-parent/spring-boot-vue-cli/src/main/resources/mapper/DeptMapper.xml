@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.love.hsl.mapper.DeptMapper">
+    <select id="get" resultType="cn.com.love.hsl.model.Dept" parameterType="java.lang.String">
+        select * from dept where id= #{id};
+    </select>
+
+    <select id="findAll" resultType="cn.com.love.hsl.model.Dept">
+        SELECT * from dept;
+    </select>
+
+    <insert id="insert">
+        insert into dept ( name ) values (#{name});
+    </insert>
+
+    <delete id="delete" parameterType="java.lang.String">
+         delete from dept where id= #{id};
+    </delete>
+
+    <update id="update">
+        update dept set name=#{name} where id=#{id};
+    </update>
+</mapper>

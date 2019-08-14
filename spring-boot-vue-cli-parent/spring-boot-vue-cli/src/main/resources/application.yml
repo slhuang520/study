@@ -1,0 +1,60 @@
+debug: false
+trace: false
+
+server:
+  port: 8080
+  servlet:
+    context-path: /sbvc
+#    session:
+#      timeout: 30
+
+#  ssl:
+#    enabled: true
+#    ## server single ssl auth
+#    key-store: classpath:key/server.key.p12
+#    key-store-password: welcome02@
+#    key-store-type: PKCS12
+#    key-alias: fx_cq.alias
+#
+#    ## client more ssl auth
+#    trust-store: classpath:key/server.key.p12
+#    trust-store-password: welcome02@
+#    trust-store-type: PKCS12
+#    client-auth: need
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: jp.co.fujixerox.log.analysis.model
+  configuration:
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+
+spring:
+  profiles:
+    active: prod
+
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+
+  datasource:
+    hikari:
+      idle-timeout: 300000
+      minimum-idle: 5
+      auto-commit: true
+      max-lifetime: 1200000
+      connection-timeout: 20000
+      maximum-pool-size: 12
+  mvc:
+    view:
+      suffix: .html
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/templates/,classpath:/static/
+
+#  thymeleaf:
+#    prefix: classpath:/templates/
+#    suffix: .html
+
+logging:
+  config: classpath:log4j2.yml

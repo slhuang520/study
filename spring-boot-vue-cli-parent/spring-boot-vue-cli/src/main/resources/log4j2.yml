@@ -1,0 +1,244 @@
+Configuration:
+  status: warn
+  monitorInterval: 30
+  Properties:
+    Property:
+      - name: log.level.console
+        value: info
+      - name: log.path
+        value: log
+      - name: project.name
+        value: sbvc
+      - name: log.pattern
+        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID:-} [%15.15t] %-30.30C{1.} : %m%n"
+  Appenders:
+    Console:
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: ${log.pattern}
+    RollingFile:
+      - name: ROLLING_FILE
+        fileName: ${log.path}/${project.name}.log
+        filePattern: "${log.path}/historyRunLog/$${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: ${log.pattern}
+        Filters:
+          ThresholdFilter:
+            - level: error
+              onMatch: DENY
+              onMismatch: NEUTRAL
+            - level: info
+              onMatch: ACCEPT
+              onMismatch: DENY
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 100
+
+      - name: PLATFORM_ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/platform/${project.name}_platform.log
+        filePattern: "${log.path}/platform/$${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: ${log.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 100
+
+      - name: BUSINESS_ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/business/${project.name}_business.log
+        filePattern: "${log.path}/business/$${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: ${log.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 100
+
+      - name: EXCEPTION_ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/exception/${project.name}_exception.log
+        filePattern: "${log.path}/exception/$${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        ThresholdFilter:
+          level: error
+          onMatch: ACCEPT
+          onMismatch: DENY
+        PatternLayout:
+          pattern: ${log.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 100
+
+      - name: DB_ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/db/${project.name}_db.log
+        filePattern: "${log.path}/db/$${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: ${log.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 100
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+        - ref: CONSOLE
+        - ref: ROLLING_FILE
+        - ref: EXCEPTION_ROLLING_FILE
+    Logger:
+      - name: platform
+        level: info
+        additivity: false
+        AppenderRef:
+          - ref: CONSOLE
+          - ref: PLATFORM_ROLLING_FILE
+      - name: business
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: BUSINESS_ROLLING_FILE
+      - name: exception
+        level: debug
+        additivity: true
+        AppenderRef:
+          - ref: EXCEPTION_ROLLING_FILE
+      - name: db
+        level: debug
+        additivity: true
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+      - name: jp.co.fujixerox.log.analysis.mapper
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: jp.co.fujixerox.log.analysis.model
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: jp.co.fujixerox.log.analysis.service
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: BUSINESS_ROLLING_FILE
+          - ref: CONSOLE
+      - name: jp.co.fujixerox.log.analysis.controller
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: BUSINESS_ROLLING_FILE
+          - ref: CONSOLE
+      - name: org.springframework
+        level: info
+        additivity: false
+        AppenderRef:
+          - ref: PLATFORM_ROLLING_FILE
+          - ref: CONSOLE
+      - name: javax.servlet
+        level: info
+        additivity: false
+        AppenderRef:
+          - ref: PLATFORM_ROLLING_FILE
+          - ref: CONSOLE
+      - name: org.mybatis
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: java.sql
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: java.sql.Connection
+        level: debug
+        additivity: false
+        AppenderRef:
+         - ref: DB_ROLLING_FILE
+         - ref: CONSOLE
+      - name: java.sql.Statement
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: java.sql.PreparedStatement
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: java.sql.ResultSet
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: javax.sql
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: com.ibatis
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: org.apache.ibatis
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: org.mybatis.spring
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: com.zaxxer.hikari
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: org.springframework.jdbc
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: org.springframework.transaction
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
+      - name: javax.sql.DataSource
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+          - ref: CONSOLE
