@@ -1,0 +1,32 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+
+<!DOCTYPE HTML>
+<html>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/marketDept.js"></script>
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/marketDept.css">
+	
+	<table id="marketDept"></table>
+  
+  	<div id="marketDept_tool" style="display: none;" class="tool_div">
+		<div style="margin-bottom:5px;" id="btnDiv">
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add-new',plain:true" id="add_marketDept" onclick="marketDept.add();">添加</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit-new',plain:true" id="edit_marketDept" onclick="marketDept.edit();">修改</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-delete-new',plain:true" id="marketDept_remove" onclick="marketDept.remove();">删除</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" id="marketDept_save" style="display: none;" onclick="marketDept.save();">保存</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" id="marketDept_redo" style="display: none;" onclick="marketDept.redo();">取消编辑</a>		
+		</div>
+	</div>
+	
+	<div id="marketDept_menu" class="easyui-menu" style="width:120px;display:none;">
+		<div onclick="marketDept.add();" data-Options="iconCls:'icon-add'">增加</div>
+		<div onclick="marketDept.edit();" data-Options="iconCls:'icon-edit'">修改</div>
+		<div onclick="marketDept.remove();" data-Options="iconCls:'icon-remove'">删除</div>
+	</div>
+	
+	<form id="marketDept_add" style="display: none;" class="add_dialog">
+		<p><label for="marketDept_name">市场部名称：</label><input type="text" id="marketDept_name" name="marketDept_name" class="textbox"></p>
+		<p><label for="marketDept_room_no">房间的号码：</label><input type="text" id="marketDept_room_no" name="marketDept_room_no" class="textbox"></p>
+		<p><label for="marketDept_demo">市场部说明：</label><input type="text" id="marketDept_demo" name="marketDept_demo" class="textbox"></p>
+	</form>
+
+</html>

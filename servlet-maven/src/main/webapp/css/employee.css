@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+.add_dialog_employee {
+	width: 750px;
+	letter-spacing: 1px;
+}
+
+.add_dialog_employee .textbox {
+	width: 150px;
+	height: 20px;
+	text-indent: 4px;
+}
+
+.add_dialog_employee p {
+	margin: 10px;
+	height: 20px;
+}
+
+.add_dialog_employee .left {
+	float: left;
+	width: 368px;
+	padding: 10px;
+}
+
+.add_dialog_employee .right {
+	float: right;
+	width: 368px;
+	padding: 10px;
+}
+
+.add_dialog_employee .center {
+	height: 100px;
+	width: 736px;
+	clear: both;
+	padding-left: 10px;
+}

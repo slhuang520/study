@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>servlet.AdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerServlet</servlet-name>
+        <servlet-class>servlet.ManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MenuServlet</servlet-name>
+        <servlet-class>servlet.MenuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeptServlet</servlet-name>
+        <servlet-class>servlet.DeptServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PositionServlet</servlet-name>
+        <servlet-class>servlet.PositionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RoleServlet</servlet-name>
+        <servlet-class>servlet.RoleServlet</servlet-class>
+    </servlet>
+    <!--<servlet>
+        <servlet-name>MarketDeptServlet</servlet-name>
+        <servlet-class>servlet.MarketDeptServlet</servlet-class>
+    </servlet>-->
+    <servlet>
+        <servlet-name>PlatformServlet</servlet-name>
+        <servlet-class>servlet.PlatformServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmployeeServlet</servlet-name>
+        <servlet-class>servlet.EmployeeServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>DruidStatView</servlet-name>
+        <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+        <init-param>
+            <!-- 允许清空统计数据 -->
+            <param-name>resetEnable</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <!-- 用户名 -->
+            <param-name>loginUsername</param-name>
+            <param-value>druid</param-value>
+        </init-param>
+        <init-param>
+            <!-- 密码 -->
+            <param-name>loginPassword</param-name>
+            <param-value>druid</param-value>
+        </init-param>
+        <init-param>
+            <param-name>allow</param-name>
+            <param-value>127.0.0.1/24,192.168.56.1</param-value>
+        </init-param>
+        <init-param>
+            <param-name>deny</param-name>
+            <param-value>128.242.127.4</param-value>
+        </init-param>
+    </servlet>
+
+    <filter>
+        <filter-name>sessionFilter</filter-name>
+        <filter-class>filter.SessionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sessionFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>DruidWebStatFilter</filter-name>
+        <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+        <init-param>
+            <param-name>exclusions</param-name>
+            <param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>DruidWebStatFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/adminServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/loginServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerServlet</servlet-name>
+        <url-pattern>/managerServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenuServlet</servlet-name>
+        <url-pattern>/menuServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeptServlet</servlet-name>
+        <url-pattern>/deptServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PositionServlet</servlet-name>
+        <url-pattern>/positionServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RoleServlet</servlet-name>
+        <url-pattern>/roleServlet.do</url-pattern>
+    </servlet-mapping>
+    <!--<servlet-mapping>
+        <servlet-name>MarketDeptServlet</servlet-name>
+        <url-pattern>/marketDeptServlet.do</url-pattern>
+    </servlet-mapping>-->
+    <servlet-mapping>
+        <servlet-name>PlatformServlet</servlet-name>
+        <url-pattern>/platformServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeServlet</servlet-name>
+        <url-pattern>/employeeServlet.do</url-pattern>
+    </servlet-mapping>
+<!--
+    <servlet>
+        <servlet-name>deptServlet</servlet-name>
+        <servlet-class>servlet.DeptServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deptServlet</servlet-name>
+        <url-pattern>/dept.do</url-pattern>
+    </servlet-mapping>-->
+
+    <servlet-mapping>
+        <servlet-name>DruidStatView</servlet-name>
+        <url-pattern>/druid/*</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

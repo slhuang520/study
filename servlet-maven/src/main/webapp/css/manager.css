@@ -1,0 +1,20 @@
+@charset "utf-8";
+/*
+.dialog-button {
+	text-align: center;
+}
+.sex_boy {
+	width: 50px;
+	margin: 10px;
+}
+*/
+.user_text_bg_img {
+	background-image: url(/fr/easyui/themes/icons/user_mature.png);
+	background-repeat:  no-repeat;
+	background-position: center right;
+}
+.password_text_bg_img {
+	background-image: url(/fr/easyui/themes/icons/lock_key.png);
+	background-repeat:  no-repeat;
+	background-position: center right;
+}
