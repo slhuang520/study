@@ -19,7 +19,7 @@ public class DateJsonValueProcessor implements JsonValueProcessor {
     private DateFormat dateFormat;
 
     public DateJsonValueProcessor() {
-        this(FORMAT);
+        this(DEFAULT_DATE_PATTERN);
     }
 
     public DateJsonValueProcessor(String format) {

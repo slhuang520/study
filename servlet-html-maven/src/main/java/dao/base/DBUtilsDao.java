@@ -7,7 +7,6 @@ import org.apache.commons.dbutils.handlers.KeyedHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import utils.ReflectUtils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.Map.Entry;
 /**
  * 使用 DBUtils 实现对数据的 CRUD 基本操作
  *
- * @param T 具体操作的实体类型
+ * @param <T> 具体操作的实体类型
  * @author <a href="mailto:1772849305@qq.com">Dreamcatcher</a>
  * @version 1.0
  */

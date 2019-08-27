@@ -12,6 +12,7 @@
         <servlet-name>deptServlet</servlet-name>
         <url-pattern>/dept.do</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>loginServlet</servlet-name>
         <servlet-class>servlet.LoginServlet</servlet-class>

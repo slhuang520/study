@@ -31,14 +31,14 @@ public class BaseService<T extends BaseModel> {
     protected void preInsert(T entity) {
         entity.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         entity.setCreateId(((BaseModel)session.getAttribute(LOGIN_USER)).getId());
-        entity.setCreateDate(new Timestamp(new Date().getTime()));
+        entity.setCreateDate(new Date());
         entity.setUpdateId(((BaseModel)session.getAttribute(LOGIN_USER)).getId());
-        entity.setUpdateDate(new Timestamp(new Date().getTime()));
+        entity.setUpdateDate(new Date());
     }
 
     protected void preUpdate(T entity) {
         entity.setUpdateId(((BaseModel)session.getAttribute(LOGIN_USER)).getId());
-        entity.setUpdateDate(new Timestamp(new Date().getTime()));
+        entity.setUpdateDate(new Date());
     }
 
     protected void addOperatorSearch(BaseModel model, List<Object> params, StringBuffer sql) {

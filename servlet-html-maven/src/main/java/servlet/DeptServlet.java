@@ -94,7 +94,7 @@ public class DeptServlet extends BaseServlet {
             String id = request.getParameter("id");
 
             String name = request.getParameter("name");
-            System.out.println("•¶š‰»‚¯‚·‚é‘O‚Ìƒ†[ƒU[–¼F" + name);
+            System.out.println("ç¼–ç æ ¼å¼å…¬ä¹‹å‰çš„åç§°ï¼š" + name);
             if (StringUtils.isEmpty(name)) {
                 logger.error("save() name is empty");
                 responseFailed(response);

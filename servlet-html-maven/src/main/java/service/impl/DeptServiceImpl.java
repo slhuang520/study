@@ -104,7 +104,7 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
             return -1;
         }
 
-        List<Object> params = new ArrayList<Object>();
+        List<Object> params = new ArrayList<>();
         params.add(dept.getId());
         params.add(dept.getName());
         insertOperatorParams(dept, params);

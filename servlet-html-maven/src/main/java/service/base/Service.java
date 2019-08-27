@@ -11,7 +11,7 @@ import java.util.Map;
  * @since 201/08/22
  * @param <T>
  */
-public interface service<T> {
+public interface Service<T> {
 
     Map<String, Object> findAll() throws SQLException;
 

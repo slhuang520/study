@@ -9,7 +9,7 @@ import utils.JDBCUtils;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Map;
 
 public class UserServiceImpl extends BaseService<User> implements UserService {
 
@@ -29,19 +29,19 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     public User find(User user) throws SQLException {
         Connection connection = JDBCUtils.getConnection();
         String sql = "select a.id, a.name, a.dept as deptId, b.name as deptName, a.create_by as creatorId," +
-                " a.create_date as createDate, a.update_id as updateId, a.update_date as updateDate from user a" +
+                " a.create_date as createDate, a.update_by as updateId, a.update_date as updateDate from user a" +
                 " left join dept b on b.id = a.dept where a.name = ? and a.password = ?";
 
         return userDao.query(connection, sql, user.getName(), user.getPassword());
     }
 
     @Override
-    public List<User> findAll() throws SQLException {
+    public Map<String, Object> findAll() throws SQLException {
         return null;
     }
 
     @Override
-    public List<User> findAll(User user) throws SQLException {
+    public Map<String, Object> findAll(User user) throws SQLException {
         return null;
     }
 
@@ -57,6 +57,16 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     public int delete(User user) throws SQLException {
+        return 0;
+    }
+
+    @Override
+    public int deleteByLogic(String id) throws SQLException {
+        return 0;
+    }
+
+    @Override
+    public int deleteByLogic(User user) throws SQLException {
         return 0;
     }
 

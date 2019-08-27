@@ -47,7 +47,7 @@ public class SessionFilter implements Filter {
         }
     }
 
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         System.out.println("中文 test 開發部7_市場部3 開發部7_市场部3" + this.getClass().getSimpleName() + "'s init...");
     }
 
