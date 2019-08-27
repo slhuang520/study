@@ -8,27 +8,49 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Map;
 
-public class BaseServlet extends HttpServlet {
+/**
+ * User Servlet
+ *
+ * @author HuangSL
+ * @version 1.0
+ * @since 201/08/22
+ */
+public abstract class BaseServlet extends HttpServlet {
 
-    protected void responseJson(HttpServletResponse response, Map<String, Object> map) throws IOException {
-
+    protected String getJSONString(Map<String, Object> map) {
         JsonConfig jsonConfig = new JsonConfig();
-        jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor());
-        jsonConfig.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor());
+        jsonConfig.registerJsonValueProcessor(java.util.Date.class, new DateJsonValueProcessor());
+        jsonConfig.registerJsonValueProcessor(java.sql.Timestamp.class, new DateJsonValueProcessor());
 
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(JSONObject.fromObject(map, jsonConfig).toString());
+        System.out.println(JSONObject.fromObject(map, jsonConfig).toString());
+        return JSONObject.fromObject(map, jsonConfig).toString();
     }
 
-    protected void responseJson(JSONObject jsonObject, HttpServletResponse response) throws IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        Writer writer = response.getWriter();
-        writer.write(jsonObject.toString());
-        writer.flush();
-        writer.close();
+    protected void responseJSON(HttpServletResponse response, Map<String, Object> map) throws IOException {
+        responseJSON(response, getJSONString(map));
+    }
+
+    protected void responseJSON(HttpServletResponse response, String result) throws IOException {
+        response.setContentType("application/json; charset=utf-8");
+        Writer out = response.getWriter();
+        out.write(result);
+        out.flush();
+        out.close();
+    }
+
+    protected void responseJSON(JSONObject jsonObject, HttpServletResponse response) throws IOException {
+        responseJSON(response, jsonObject.toString());
+    }
+
+    protected void responseJSON(Object res, HttpServletResponse response) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("res", res);
+        responseJSON(jsonObject, response);
+    }
+
+    protected void responseFailed(HttpServletResponse response) throws IOException {
+        responseJSON(false, response);
     }
 }

@@ -1,12 +1,19 @@
 package dao.base;
 
 import javax.resource.NotSupportedException;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * CRUD interface
+ *
+ * @author HuangSL
+ * @version 1.0
+ * @since 201/08/22
+ *
+ * @param <T>
+ */
 public interface IBaseDao<T> {
 
 	/**
@@ -80,8 +87,7 @@ public interface IBaseDao<T> {
 	 * @throws InvocationTargetException
 	 * 
 	 */
-	List<T> queryList(Connection connection, String sql, Object... args) throws SQLException,
-			InstantiationException, IllegalAccessException, InvocationTargetException;
+    List<T> queryList(Connection connection, String sql, Object... args) throws SQLException;
 
 	/**
 	 * 单个对象查询<br>
@@ -106,8 +112,7 @@ public interface IBaseDao<T> {
 	 * @throws SQLException
 	 * 
 	 */
-	T query(Connection connection, String sql, Object... args) throws InstantiationException,
-			IllegalAccessException, InvocationTargetException, SQLException;
+    T query(Connection connection, String sql, Object... args) throws SQLException;
 
 	/**
 	 * 更新操作<br>

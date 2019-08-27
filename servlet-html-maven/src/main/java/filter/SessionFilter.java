@@ -6,42 +6,49 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Session Filter
+ *
+ * @author HuangSL
+ * @version 1.0
+ * @since 201/08/22
+ */
 public class SessionFilter implements Filter {
 
-	public void destroy() {
-		System.out.println(this.getClass().getSimpleName() + "'s destroy...");
-	}
+    public void destroy() {
+        System.out.println(this.getClass().getSimpleName() + "'s destroy...");
+    }
 
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) res;
-		HttpSession session = request.getSession();
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+            throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
+        HttpSession session = request.getSession();
 
-		String uri = request.getRequestURI();// 获取登录的action
-System.out.println("uri: " + uri);
-		if (uri.indexOf("login") >= 0) {
-			chain.doFilter(request, response);// 跳转页面
-		} else {
-			// 获取登录用户的Session --基础权限检查，用户没有登陆，被拦截或者session超时请重新登录
-//			if (session == null || session.getAttribute("login_user") == null) {
-//				// 如果是ajax请求响应头会有，x-requested-with；
-//				if (request.getHeader("x-requested-with") != null
-//						&& request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")) {
-//					response.setHeader("sessionstatus", "timeout");// 在响应头设置session状态
-//					response.getWriter().print("登录超时！"); // 打印一个返回值，没这一行，在tabs页中无法跳出（导航栏能跳出），具体原因不明
-//				}
-//			String toPath = request.getQueryString().substring(8);
-//			response.sendRedirect(request.getContextPath() + "index.jsp?toPath = " + toPath);
-//				return;
-//			} else {
-				chain.doFilter(request, response);// 跳转页面
-//			}
-		}
-	}
+        String uri = request.getRequestURI();
+        System.out.println("uri: " + uri);
+        String path = request.getServletPath();
+        System.out.println("path=" + path);
+        if (uri.contains("login") || uri.startsWith("/psm/static/") || uri.startsWith("/psm/druid")) {
+            chain.doFilter(request, response);
+        } else {
+            if (session == null || session.getAttribute("login_user") == null) {
+                if (request.getHeader("x-requested-with") != null
+                        && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")) {
+                    response.setHeader("sessionstatus", "timeout");
+                    response.getWriter().print("Login timeout！");
+                }
+                String contextPath = request.getContextPath();
+                System.out.println("ContextPath=" + contextPath);
+                response.sendRedirect(contextPath + "/login.html?toPath=" + path);
+            } else {
+                chain.doFilter(request, response);
+            }
+        }
+    }
 
-	public void init(FilterConfig filterConfig) throws ServletException {
-		System.out.println("中文" + this.getClass().getSimpleName() + "'s init...");
-	}
+    public void init(FilterConfig filterConfig) throws ServletException {
+        System.out.println("中文 test 開發部7_市場部3 開發部7_市场部3" + this.getClass().getSimpleName() + "'s init...");
+    }
 
 }

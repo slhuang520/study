@@ -12,6 +12,14 @@
         <servlet-name>deptServlet</servlet-name>
         <url-pattern>/dept.do</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/login.do</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>DruidStatView</servlet-name>
@@ -46,12 +54,28 @@
     </servlet-mapping>
 
     <filter>
+        <filter-name>charset-encoding</filter-name>
+        <filter-class>filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>enable</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>charset-encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
         <filter-name>sessionFilter</filter-name>
         <filter-class>filter.SessionFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>sessionFilter</filter-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -67,11 +91,11 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
-
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 </web-app>

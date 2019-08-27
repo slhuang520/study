@@ -26,7 +26,7 @@ public abstract class ReflectUtils {
 	 * 
 	 * @return 父类的泛型参数的类型
 	 */
-	public static Class<?> getSupperClassGenricType(Class<?> clazz, int index) {
+    public static Class<?> getSupperClassGenericType(Class<?> clazz, int index) {
 
 		Type type = clazz.getGenericSuperclass();
 
@@ -62,8 +62,8 @@ public abstract class ReflectUtils {
 	 * 
 	 * @return 父类的泛型参数的类型
 	 */
-	public static Class<?> getSupperClassGenricType(Class<?> clazz) {
-		return getSupperClassGenricType(clazz, 0);
+    public static Class<?> getSupperClassGenericType(Class<?> clazz) {
+        return getSupperClassGenericType(clazz, 0);
 	}
 
 	/**
@@ -82,9 +82,7 @@ public abstract class ReflectUtils {
 				.getSuperclass()) {
 			try {
 				return clazz.getDeclaredField(fieldName);
-			} catch (NoSuchFieldException e) {
-				// 当前类没有定义该字段，继续向上转型，找父类中是否有定义
-			} catch (SecurityException e) {
+            } catch (NoSuchFieldException | SecurityException ignored) {
 				// 当前类没有定义该字段，继续向上转型，找父类中是否有定义
 			}
 		}
@@ -111,9 +109,7 @@ public abstract class ReflectUtils {
 				.getSuperclass()) {
 			try {
 				return clazz.getDeclaredMethod(methodName, parameterTypes);
-			} catch (NoSuchMethodException e) {
-				// 当前类没有定义该方法，继续向上转型，找父类中是否有定义
-			} catch (SecurityException e) {
+            } catch (NoSuchMethodException | SecurityException ignored) {
 				// 当前类没有定义该方法，继续向上转型，找父类中是否有定义
 			}
 		}
@@ -163,7 +159,7 @@ public abstract class ReflectUtils {
 
 		try {
 			return method.invoke(object, args);
-		} catch (IllegalAccessException e) {
+        } catch (IllegalAccessException ignored) {
 			// 上面已经将方法设置成可访问的，所以这里不会再出现这个异常
 		}
 		return null;
@@ -205,7 +201,7 @@ public abstract class ReflectUtils {
 
 		try {
 			field.set(object, fieldValue);
-		} catch (IllegalAccessException e) {
+        } catch (IllegalAccessException ignored) {
 			// 上面已经将属性设置成可访问的，所以这里不会再出现这个异常
 		}
 	}
@@ -234,7 +230,7 @@ public abstract class ReflectUtils {
 
 		try {
 			return field.get(object);
-		} catch (IllegalAccessException e) {
+        } catch (IllegalAccessException ignored) {
 			// 上面已经将属性设置成可访问的，所以这里不会再出现这个异常
 		}
 		return null;

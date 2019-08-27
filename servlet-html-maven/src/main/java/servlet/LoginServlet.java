@@ -2,6 +2,9 @@ package servlet;
 
 import model.User;
 import model.base.BaseModel;
+import service.base.BaseService;
+import service.UserService;
+import service.impl.UserServiceImpl;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -15,66 +18,55 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 
+/**
+ * Login Servlet
+ *
+ * @author HuangSL
+ * @version 1.0
+ * @since 201/08/22
+ */
 public class LoginServlet extends BaseServlet {
 
     private UserService userService;
-    private static final Logger logger = LoggerFactory.getLogger(LoginServlet.class);
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) {
         try {
+            System.out.println(System.getProperty("file.encoding"));
+            System.out.println(Charset.defaultCharset().name());
             userService = new UserServiceImpl(req.getSession());
             String methodName = req.getParameter("method");
+            System.out.println("login servlet ser....." + methodName);
             Method method = getClass().getDeclaredMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             method.invoke(this, req, resp);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
 
-    private void login(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            String name = request.getParameter("user");
-            String pwd = request.getParameter("password");
+    private void login(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        String userName = request.getParameter("user");
+        String password = request.getParameter("password");
+        System.out.println(userName + ":" + password);
 
-            Boolean res = true;
-            if (StringUtils.isEmpty(name)) {
-                logger.error(this.getClass().getName() + ".login({})", "name is empty");
-                res = false;
-            }
+        User user = new User();
+        user.setName(userName);
+        user.setPassword(password);
+        user = userService.find(user);
+        System.out.println(user);
 
-            if (StringUtils.isEmpty(pwd)) {
-                logger.error(this.getClass().getName() + ".login({})", "password is empty");
-                res = false;
-            }
-
-            if (!res) {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("res", false);
-                responseJson(jsonObject, response);
-                return;
-            }
-
-            User user = new User();
-            user.setName(name);
-            user.setPassword(pwd);
-            user = userService.find(user);
-            if (user == null) {
-                res = false;
-            } else {
-                request.getSession().setAttribute(BaseService.LOGIN_USER, user);
-            }
-
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("res", res);
-            responseJson(jsonObject, response);
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
+        JSONObject jsonObject = new JSONObject();
+        if (user != null && StringUtils.isNotEmpty(user.getId())) {
+            jsonObject.put("res", true);
+            request.getSession().setAttribute(BaseService.LOGIN_USER, user);
+        } else {
+            jsonObject.put("res", false);
         }
+        responseJSON(jsonObject, response);
     }
 }

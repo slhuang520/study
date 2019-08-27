@@ -1,23 +1,33 @@
 package service.base;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Map;
 
-public interface Service<T> {
+/**
+ * Service Interface
+ *
+ * @author HuangSL
+ * @version 1.0
+ * @since 201/08/22
+ * @param <T>
+ */
+public interface service<T> {
 
-    T get(String id) throws SQLException;
+    Map<String, Object> findAll() throws SQLException;
 
-    T find(T t) throws SQLException;
-
-    List<T> findAll() throws SQLException;
-
-    List<T> findAll(T t) throws SQLException;
+    Map<String, Object> findAll(T t) throws SQLException;
 
     int insert(T t) throws SQLException;
 
     int update(T t) throws SQLException;
 
+    int delete(String id) throws SQLException;
+
     int delete(T t) throws SQLException;
 
-    int delete(String id) throws SQLException;
+    int deleteByLogic(String id) throws SQLException;
+
+    int deleteByLogic(T t) throws SQLException;
+
+    T get(String id) throws SQLException;
 }

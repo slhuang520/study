@@ -5,11 +5,17 @@ import net.sf.json.processors.JsonValueProcessor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
+/**
+ * Date With Json Processor
+ *
+ * @author HuangSL
+ * @version 1.0
+ * @since 201/08/22
+ */
 public class DateJsonValueProcessor implements JsonValueProcessor {
 
-    private static final String FORMAT = "yyyy-MM-dd HH:MM:SS";
+    private static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private DateFormat dateFormat;
 
     public DateJsonValueProcessor() {
@@ -19,17 +25,15 @@ public class DateJsonValueProcessor implements JsonValueProcessor {
     public DateJsonValueProcessor(String format) {
         try {
             dateFormat = new SimpleDateFormat(format);
-        } catch (Exception e) {
-            dateFormat = new SimpleDateFormat(FORMAT);
+        } catch (Exception ex) {
+            dateFormat = new SimpleDateFormat(DEFAULT_DATE_PATTERN);
         }
     }
 
-    @Override
-    public Object processArrayValue(Object o, JsonConfig jsonConfig) {
+    public Object processArrayValue(Object value, JsonConfig jsonConfig) {
         return null;
     }
 
-    @Override
     public Object processObjectValue(String key, Object value, JsonConfig jsonConfig) {
         if (value == null) {
             return "";
@@ -40,7 +44,7 @@ public class DateJsonValueProcessor implements JsonValueProcessor {
         }
 
         if (value instanceof java.util.Date) {
-            return dateFormat.format((Date) value);
+            return dateFormat.format((java.util.Date) value);
         }
 
         return value.toString();

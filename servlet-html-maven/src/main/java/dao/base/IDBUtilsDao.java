@@ -2,7 +2,13 @@ package dao.base;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
+/**
+ * Insert interface
+ *
+ * @author HuangSL
+ * @version 1.0
+ * @since 201/08/22
+ */
 public interface IDBUtilsDao<T> extends IBaseDao<T> {
 
 	/**

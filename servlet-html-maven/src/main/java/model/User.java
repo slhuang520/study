@@ -2,6 +2,13 @@ package model;
 
 import model.base.BaseModel;
 
+/**
+ * User entity
+ *
+ * @author HuangSL
+ * @version 1.0
+ * @since 201/08/22
+ */
 public class User extends BaseModel {
     private String name;
     private String password;
@@ -9,12 +16,10 @@ public class User extends BaseModel {
     private String deptName;
     private Dept dept;
 
-    public User() {
+    public User(){}
 
-    }
-
-    public User(String id) {
-        this.setId(id);
+    public User(String id){
+        setId(id);
     }
 
     public String getName() {
@@ -39,10 +44,10 @@ public class User extends BaseModel {
 
     public void setDeptId(String deptId) {
         this.deptId = deptId;
-        if (dept == null) {
-            dept = new Dept();
-            dept.setId(deptId);
+        if (this.dept == null) {
+            this.dept = new Dept();
         }
+        this.dept.setId(deptId);
     }
 
     public String getDeptName() {
@@ -51,17 +56,13 @@ public class User extends BaseModel {
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
-        if (dept == null){
-            dept = new Dept();
+        if (this.dept == null) {
+            this.dept = new Dept();
         }
-        dept.setName(deptName);
+        this.dept.setName(deptName);
     }
 
     public Dept getDept() {
         return dept;
-    }
-
-    public void setDept(Dept dept) {
-        this.dept = dept;
     }
 }

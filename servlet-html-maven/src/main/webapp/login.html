@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>管理员登录</title>
+  <link rel="stylesheet" type="text/css" href="./static/bootstrap/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="./static/css/basic.css">
+  <link rel="stylesheet" type="text/css" href="./static/css/login.css">
+
+  <script src="./static/jquery/jquery.js"></script>
+  <script src="./static/bootstrap/bootstrap.js"></script>
+  <script src="./static/js/basic.js"></script>
+  <script>
+
+    $(function () {
+      var toPath = document.location.search.substr(8);
+      console.log(toPath);
+      $("#loginBtn").click(function () {
+        var user = $("#user").val(),
+            psw = $("#password").val();
+
+        var data = {
+          method: "login",
+          user: user,
+          password: psw
+        };
+        $.post(getContextPath() + "/login.do", data, function (res) {
+          console.log(res);
+          if (res) {
+            location.href = getContextPath() + (toPath ? toPath : "/index.html");
+          }
+        }, "json");
+        /*$.getJSON(getContextPath() + "/login.do?method=login&user=" + user + "&password=" + psw, function (res) {
+          console.log(res);
+          if (res) {
+            location.href = getContextPath() + "/index.html";
+          }
+        });*/
+      });
+    });
+  </script>
+  <script type="text/javascript" src="./static/js/banner.js"></script>
+</head>
+<body>
+
+<header id="header">
+  <div id="logDiv">
+    <h1>财务报表</h1>
+    <h2>信息管理系统</h2>
+    <ul>
+      <li>●</li>
+      <li>●</li>
+      <li>●</li>
+      <li>●</li>
+      <li>●</li>
+      <li>●</li>
+    </ul>
+  </div>
+</header>
+<span id="bannerCurBg">&nbsp;</span>
+
+<section id="section">
+  <div id="loginDiv">
+    <p><label for="user">管理员帐号：</label><input type="text" id="user" name="user" class="textbox"></p>
+    <p><label for="password">管理员密码：</label><input type="password" id="password" name="password" class="textbox"></p>
+    <input type="button" value="登录" id="loginBtn">
+  </div>
+</section>
+
+<footer id="footer">
+  <div>Copyright © HSL 胆小鬼放飞的梦| 渝ICP 备120110119 号| 网站经营许可证：L-YC-BK12345</div>
+</footer>
+
+</body>
+</html>

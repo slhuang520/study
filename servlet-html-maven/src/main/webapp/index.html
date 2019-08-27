@@ -1,10 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Index</title>
+  <meta charset="UTF-8">
+  <title>Hello Test</title>
+  <link rel="stylesheet" href="./static/bootstrap/bootstrap.css">
+  <script src="./static/jquery/jquery.js"></script>
+  <script src="./static/bootstrap/bootstrap.js"></script>
+  <script src="./static/js/basic.js"></script>
+  <script>
+    $(function () {
+      function getRootPath() {
+        var pathName = window.location.pathname.substring(1);
+        var webName = pathName === '' ? '' : pathName.substring(0, pathName.indexOf('/'));
+        return window.location.protocol + '//' + window.location.host + '/' + webName + '/';
+      }
+
+      console.log(getRootPath());
+
+      function getContextPath() {
+
+        var pathName = document.location.pathname;
+        var index = pathName.substr(1).indexOf("/");
+        return pathName.substr(0, index + 1);
+      }
+
+      // console.log(getContextPath());
+      // $.getJSON(getContextPath() + "/dept.do?method=get&id=1", function (res) {
+      //   console.log(res);
+      // });
+    });
+  </script>
 </head>
 <body>
-<h1>Index</h1>
+  <h1>Hello</h1>
 </body>
 </html>

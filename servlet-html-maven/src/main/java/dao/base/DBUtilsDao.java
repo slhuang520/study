@@ -5,8 +5,6 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.KeyedHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import utils.ReflectUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -29,7 +27,6 @@ public class DBUtilsDao<T> implements IDBUtilsDao<T> {
      * DBUtils 的查询器，是线程安全的
      */
     private QueryRunner runner = null;
-    private static Logger logger = LoggerFactory.getLogger(DBUtilsDao.class);
 
     /**
      * 泛型的类型
@@ -39,41 +36,33 @@ public class DBUtilsDao<T> implements IDBUtilsDao<T> {
     @SuppressWarnings("unchecked")
     public DBUtilsDao() {
         runner = new QueryRunner();
-        clazz = (Class<T>) ReflectUtils.getSupperClassGenricType(getClass());
+        clazz = (Class<T>) ReflectUtils.getSupperClassGenericType(getClass());
     }
 
     public int[] batch(Connection connection, String sql, Object[]... args) throws SQLException {
-        logger.debug(this.getClass().getName() + "batch({}, {})", sql, args);
         return runner.batch(connection, sql, args);
     }
 
     public <E> E queryForValue(Connection connection, String sql, Object... args)
             throws SQLException {
-        logger.debug(this.getClass().getName() + "queryForValue({}, {})", sql, args);
         return runner.query(connection, sql, new ScalarHandler<E>(), args);
     }
 
-    public List<T> queryList(Connection connection, String sql, Object... args)
-            throws SQLException {
-        logger.debug(this.getClass().getName() + "queryList({}, {})", sql, args);
+    public List<T> queryList(Connection connection, String sql, Object... args) throws SQLException {
         return runner.query(connection, sql, new BeanListHandler<T>(clazz), args);
     }
 
-    public T query(Connection connection, String sql, Object... args)
-            throws SQLException {
-        logger.debug(this.getClass().getName() + "query({}, {})", sql, args);
+    public T query(Connection connection, String sql, Object... args) throws SQLException {
         return runner.query(connection, sql, new BeanHandler<T>(clazz), args);
     }
 
     public int update(Connection connection, String sql, Object... args) throws SQLException {
-        logger.debug(this.getClass().getName() + "update({}, {})", sql, args);
         return runner.update(connection, sql, args);
     }
 
     public int insert(Connection connection, String sql, Object... args) throws SQLException {
         Map<Long, Map<String, Object>> map = runner.insert(connection, sql,
                 new KeyedHandler<Long>(), args);
-        logger.debug(this.getClass().getName() + "insert({}, {})", sql, args);
         // 取得自动生成的 ID
         int[] autoIds = new int[map.size()];
         int i = 0;
@@ -87,7 +76,6 @@ public class DBUtilsDao<T> implements IDBUtilsDao<T> {
     public int[] insertBatch(Connection connection, String sql, Object[]... args)
             throws SQLException {
 
-        logger.debug(this.getClass().getName() + "insertBatch({}, {})", sql, args);
         // 可以将 【Statement.RETURN_GENERATED_KEYS】 传入 KeyedHandler 构造方法中,
         // 但不能传入其他 column 字段，因为里面只包含这一个字段
         // Map<Long, Map<String, Object>> map = runner.insert(connection, sql,
