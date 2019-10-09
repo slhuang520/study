@@ -37,6 +37,8 @@ System.out.println("uri: " + uri);
 //					response.setHeader("sessionstatus", "timeout");// 在响应头设置session状态
 //					response.getWriter().print("登录超时！"); // 打印一个返回值，没这一行，在tabs页中无法跳出（导航栏能跳出），具体原因不明
 //				}
+//			String toPath = request.getQueryString().substring(8);
+//			response.sendRedirect(request.getContextPath() + "index.jsp?toPath = " + toPath);
 //				return;
 //			} else {
 				chain.doFilter(request, response);// 跳转页面

@@ -4,6 +4,7 @@ import Dao.DeptDao;
 import Service.DeptService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Dept;
+import net.sf.json.JSONObject;
 import utils.JDBCUtils;
 
 import javax.servlet.ServletException;
@@ -145,10 +146,15 @@ public class DeptServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         System.out.println(depts);
         System.out.println(mapper.writeValueAsString(depts));
-        String res = "{\"total\":" + count + ",\"rows\":" + mapper.writeValueAsString(depts) + "}";
-        response.setContentType("text/javascript;charset=UTF-8");
-        System.out.println(res);
-        response.getWriter().write(res);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total", count);
+        jsonObject.put("rows", depts);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(jsonObject.toString());
+//        String res = "{\"total\":" + count + ",\"rows\":" + mapper.writeValueAsString(depts) + "}";
+//        response.setContentType("text/javascript;charset=UTF-8");
+//        System.out.println(res);
+//        response.getWriter().write(res);
     }
 
     /**
