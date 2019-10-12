@@ -4,6 +4,7 @@ import model.base.BaseModel;
 import model.base.Pager;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -31,14 +32,14 @@ public class BaseService<T extends BaseModel> {
     protected void preInsert(T entity) {
         entity.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         entity.setCreateId(((BaseModel)session.getAttribute(LOGIN_USER)).getId());
-        entity.setCreateDate(new Date());
+        entity.setCreateDate(new Timestamp(new Date().getTime()));
         entity.setUpdateId(((BaseModel)session.getAttribute(LOGIN_USER)).getId());
-        entity.setUpdateDate(new Date());
+        entity.setUpdateDate(new Timestamp(new Date().getTime()));
     }
 
     protected void preUpdate(T entity) {
         entity.setUpdateId(((BaseModel)session.getAttribute(LOGIN_USER)).getId());
-        entity.setUpdateDate(new Date());
+        entity.setUpdateDate(new Timestamp(new Date().getTime()));
     }
 
     protected void addOperatorSearch(BaseModel model, List<Object> params, StringBuffer sql) {
