@@ -45,22 +45,22 @@ public class BaseService<T extends BaseModel> {
     protected void addOperatorSearch(BaseModel model, List<Object> params, StringBuffer sql) {
         if (!Objects.isNull(model.getCreator())) {
             params.add(model.getCreator().getId());
-            sql.append(" and a.create_by = ?");
+            sql.append("and a.create_by = ?");
         }
 
         if (model.getCreateDate() != null) {
             params.add(model.getCreateDate());
-            sql.append(" and a.create_date = ?");
+            sql.append("and a.create_date = ?");
         }
 
         if (!Objects.isNull(model.getUpdater())) {
             params.add(model.getUpdater().getId());
-            sql.append(" and a.update_by = ?");
+            sql.append("and a.update_by = ?");
         }
 
         if (model.getUpdateDate() != null) {
             params.add(model.getUpdateDate());
-            sql.append(" and a.update_date = ?");
+            sql.append("and a.update_date = ?");
         }
     }
 

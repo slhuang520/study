@@ -3,98 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>Dept</title>
-  <link rel="stylesheet" href="../static/bootstrap/bootstrap.css">
+  <link rel="stylesheet" href="../static/libs/bootstrap/bootstrap.css">
   <link rel="stylesheet" href="../static/css/basic.css">
+  <link rel="stylesheet" href="../css/dept.css">
 
-  <script src="../static/jquery/jquery.js"></script>
-  <script src="../static/bootstrap/bootstrap.js"></script>
+  <script src="../static/libs/jquery/jquery.js"></script>
+  <script src="../static/libs/bootstrap/bootstrap.js"></script>
   <script src="../static/js/basic.js"></script>
-
-  <style>
-    h1 {
-      font-size: 30px;
-      text-align: center;
-      margin: 10px;
-      font-weight: bold;
-    }
-    .dept {
-      width: 80%;
-      margin: 0 auto;
-    }
-    .navigation-detail {
-      margin: 20px 0;
-      display: inline-block;
-    }
-    .navigation-no {
-      float: right;
-    }
-    .pagination .page-item {
-      cursor: pointer;
-    }
-    #loading {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      background-color: #eeeeeed9;
-      height: 100%;
-      text-align: center;
-      display: none;
-      z-index: 99;
-    }
-    #loading span {
-      top: 50%;
-      position: absolute;
-    }
-  </style>
-  <script>
-    $(function () {
-      $(document).ajaxStart(function () {
-        $("#loading").show();
-      });
-      $(document).ajaxComplete(function () {
-        $("#loading").hide();
-      });
-      function getDeptList(pageNo) {
-        pageNo = pageNo || 1;
-        // var deferred = $.Deferred();
-        $.getJSON(getContextPath() + "/dept.do?method=list&pageNo="+pageNo, function (res) {
-          console.log(res);
-          if (!res) {
-            alert("获取Dept列表失败。");
-            return;
-          }
-
-          var $deptList = $("#dept_list");
-          $deptList.empty();
-          for (var idx in res.deptList) {
-            var tr = $("<tr></tr>");
-            var dept = res.deptList[idx];
-            $("<td>" + dept.name + "</td>").appendTo(tr);
-            $("<td>" + dept.creator.name + "</td>").appendTo(tr);
-            $("<td>" + dept.createDate + "</td>").appendTo(tr);
-            $("<td>" + dept.updater.name + "</td>").appendTo(tr);
-            $("<td>" + dept.updateDate + "</td>").appendTo(tr);
-            $deptList.append(tr);
-          }
-
-          // total = res.pager.total;
-          createPager($("#dept_page"), res.pager);
-          setPagerEvent(getDeptList, res.pager.total);
-          // deferred.resolve();
-        });
-        // return deferred.promise();
-      }
-      getDeptList();
-      // getDeptList().then(function () {
-      //   setPagerEvent(getDeptList, total);
-      // });
-    });
-  </script>
+  <script src="../static/libs/include/include.js"></script>
+  <script src="../js/dept.js"></script>
 </head>
 <body>
+<header></header>
+<article>
+  <h1>部门列表</h1>
   <section id="dept" class="dept">
-    <article>
-      <h1>部门列表</h1>
       <table class="table table-striped table-hover">
         <thead>
           <tr>
@@ -107,39 +30,12 @@
         </thead>
         <tbody id="dept_list"></tbody>
       </table>
-      <div class="table-navigation" id="dept_page">
-        <div class="navigation-detail">
-          总共 <span class="list-records"></span> 条记录,每页显示 <span class="list-page-size"></span> 条记录,总共 <span class="list-total"></span> 页
-        </div>
-        <nav aria-label="Page navigation" class="navigation-no">
-          <ul class="pagination">
-            <li class="page-item first-page">
-              <span class="page-link" aria-label="First">
-                <span aria-hidden="true">&laquo;</span>
-              </span>
-            </li>
-            <li class="page-item pre-page">
-              <span class="page-link" aria-label="Previous">
-                <span aria-hidden="true">‹</span>
-              </span>
-            </li>
-            <li class="page-item next-page">
-              <span class="page-link" aria-label="Next">
-                <span aria-hidden="true">›</span>
-              </span>
-            </li>
-            <li class="page-item last-page">
-              <span class="page-link" aria-label="Last">
-                <span aria-hidden="true">&raquo;</span>
-              </span>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </article>
+      <include src="./common/pager.html"></include>
   </section>
   <section id="loading">
     <span>加载中.....</span>
   </section>
+</article>
+<include src="../footer.html"></include>
 </body>
 </html>

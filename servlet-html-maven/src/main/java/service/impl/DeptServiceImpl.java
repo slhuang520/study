@@ -27,10 +27,18 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 
     private DeptDao deptDao = new DeptDao();
     private static final Logger logger = LoggerFactory.getLogger(DeptServiceImpl.class);
-    private static final String DEPT_COLUMNS_SEARCH = " a.id, a.name, a.create_by as createId, a.create_date as createDate, a.update_by as updateId, a.update_date as updateDate, b.name as createName, c.name updateName ";
-    private static final String LEFT_JOIN_USER = " left join user b on b.id=a.create_by left join user c on c.id=a.update_by ";
-    private static final String FIND_SORT_SQL = " order by a.create_date desc ";
-    private static final String DEPT_INSERT_SQL = "insert into dept (id, name, create_by, create_date, update_by, update_date) values (?, ?, ?, ?, ?, ?)";
+    private static final String DEPT_COLUMNS_SEARCH =
+            "a.id, " +
+            "a.name, " +
+            "a.create_by as createId, " +
+            "a.create_date as createDate, " +
+            "a.update_by as updateId, " +
+            "a.update_date as updateDate, " +
+            "b.name as createName, " +
+            "c.name updateName ";
+    private static final String LEFT_JOIN_USER = "left join t_user b on b.id=a.create_by left join t_user c on c.id=a.update_by ";
+    private static final String FIND_SORT_SQL = "order by a.create_date desc ";
+    private static final String DEPT_INSERT_SQL = "insert into t_dept (id, name, create_by, create_date, update_by, update_date) values (?, ?, ?, ?, ?, ?)";
 
     public DeptServiceImpl(HttpSession session) {
         super(session);
@@ -47,12 +55,12 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
         StringBuffer sql = new StringBuffer();
         StringBuffer countSql = new StringBuffer();
         List<Object> params = new ArrayList<>();
-        sql.append("select");
+        sql.append("select ");
         sql.append(DEPT_COLUMNS_SEARCH);
-        sql.append("from dept a");
+        sql.append("from t_dept a ");
         sql.append(LEFT_JOIN_USER);
-        sql.append("where 1=1");
-        countSql.append("select count(*) from dept a where 1=1");
+        sql.append("where 1=1 ");
+        countSql.append("select count(*) from t_dept a where 1=1 ");
 
         if (StringUtils.isNotEmpty(dept.getName())) {
             params.add(dept.getName());
@@ -128,7 +136,7 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
             return -1;
         }
 
-        sql.append("update dept set ");
+        sql.append("update t_dept set ");
         if (StringUtils.isNotEmpty(dept.getName())) {
             params.add(dept.getName());
             sql.append("name = ? ");
@@ -138,7 +146,7 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
         }
 
         updateOperator(dept, params, sql);
-        sql.append("where id = ?");
+        sql.append("where id = ? ");
         params.add(dept.getId());
 
         Connection connection = JDBCUtils.getConnection();
@@ -158,7 +166,7 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
     public int delete(Dept dept) throws SQLException {
         logger.info("delete({}) started..", dept);
         List<Object> params = new ArrayList<>();
-        StringBuffer sql = new StringBuffer("delete a from dept a where 1=1");
+        StringBuffer sql = new StringBuffer("delete a from t_dept a where 1=1 ");
 
         addIdNameSearch(dept, params, sql);
         addOperatorSearch(dept, params, sql);
@@ -169,12 +177,12 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
     private void addIdNameSearch(Dept dept, List<Object> params, StringBuffer sql) {
         if (StringUtils.isNotEmpty(dept.getId())) {
             params.add(dept.getId());
-            sql.append(" and a.id = ?");
+            sql.append(" and a.id = ? ");
         }
 
         if (StringUtils.isNotEmpty(dept.getName())) {
             params.add(dept.getName());
-            sql.append(" and a.name = ?");
+            sql.append(" and a.name = ? ");
         }
     }
 
@@ -200,9 +208,9 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
             return -1;
         }
 
-        sql.append("update dept a set a.del_flg = 1");
+        sql.append("update t_dept a set a.del_flg = 1 ");
         updateOperator(dept, params, sql);
-        sql.append(" where 1=1");
+        sql.append(" where 1=1 ");
 
         addIdNameSearch(dept, params, sql);
 //        addOperatorSearch(dept, params, sql);
@@ -214,9 +222,9 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
     @Override
     public Dept get(String id) throws SQLException {
         logger.info("get({}) started..", id);
-        StringBuffer sql = new StringBuffer("select");
+        StringBuffer sql = new StringBuffer("select ");
         sql.append(DEPT_COLUMNS_SEARCH);
-        sql.append("from dept a where a.id = ?");
+        sql.append("from t_dept a where a.id = ? ");
         Connection connection = JDBCUtils.getConnection();
         return deptDao.query(connection, sql.toString(), id);
     }

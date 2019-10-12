@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Session Filter
@@ -29,17 +32,24 @@ public class SessionFilter implements Filter {
         System.out.println("uri: " + uri);
         String path = request.getServletPath();
         System.out.println("path=" + path);
-        if (uri.contains("login") || uri.startsWith("/psm/static/") || uri.startsWith("/psm/druid")) {
+        List<String> s_html = new ArrayList<>();
+        s_html.add("/login.html");
+        s_html.add("/footer.html");
+        if (s_html.contains(path) || path.startsWith("/login.do") || path.startsWith("/static/") || path.startsWith("/druid")) {
             chain.doFilter(request, response);
         } else {
             if (session == null || session.getAttribute("login_user") == null) {
                 if (request.getHeader("x-requested-with") != null
                         && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")) {
                     response.setHeader("sessionstatus", "timeout");
-                    response.getWriter().print("Login timeout！");
+                    response.getWriter().print("Login timeout!");
                 }
                 String contextPath = request.getContextPath();
                 System.out.println("ContextPath=" + contextPath);
+                if (path.contains("/psm")) {
+                    response.sendRedirect(contextPath + "/login.html");
+                    return;
+                }
                 response.sendRedirect(contextPath + "/login.html?toPath=" + path);
             } else {
                 chain.doFilter(request, response);

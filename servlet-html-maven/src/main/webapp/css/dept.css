@@ -1,0 +1,34 @@
+h1 {
+    font-size: 30px;
+    text-align: center;
+    margin: 10px;
+    font-weight: bold;
+}
+.dept {
+    width: 80%;
+    margin: 0 auto;
+}
+.navigation-detail {
+    margin: 20px 0;
+    display: inline-block;
+}
+.navigation-no {
+    float: right;
+}
+.pagination .page-item {
+    cursor: pointer;
+}
+#loading {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #eeeeeed9;
+    height: 100%;
+    text-align: center;
+    display: none;
+    z-index: 99;
+}
+#loading span {
+    top: 50%;
+    position: absolute;
+}

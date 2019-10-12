@@ -7,9 +7,10 @@
   <link rel="stylesheet" href="./static/css/basic.css">
   <link rel="stylesheet" href="./static/css/login.css">
 
-  <script src="./static/jquery/jquery.js"></script>
-  <script src="./static/bootstrap/bootstrap.js"></script>
+  <script src="./static/libs/jquery/jquery.js"></script>
+  <script src="./static/libs/bootstrap/bootstrap.js"></script>
   <script src="./static/js/basic.js"></script>
+  <script src="./static/libs/include/include.js"></script>
   <script>
 
     $(function () {
@@ -27,7 +28,7 @@
         $.post(getContextPath() + "/login.do", data, function (res) {
           console.log(res);
           if (res) {
-            location.href = getContextPath() + (toPath ? toPath : "/index.html");
+            location.href = getContextPath() + (toPath ? toPath : "/pages/dept.html");
           }
         }, "json");
         /*$.getJSON(getContextPath() + "/login.do?method=login&user=" + user + "&password=" + psw, function (res) {
@@ -66,10 +67,6 @@
     <input type="button" value="登录" id="loginBtn">
   </div>
 </section>
-
-<footer id="footer">
-  <div>Copyright © HSL 胆小鬼放飞的梦| 渝ICP 备120110119 号| 网站经营许可证：L-YC-BK12345</div>
-</footer>
-
+<include src="./footer.html"></include>
 </body>
 </html>

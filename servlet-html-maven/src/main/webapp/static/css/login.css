@@ -86,16 +86,6 @@
     border-color: #999;
 }
 
-#footer {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    margin: 0 0 5px 0;
-    color: #666;
-    letter-spacing: 1px;
-}
-
 /*.user_text_bg_img {
 	background-image: url(/fr/easyui/themes/icons/man.png);
 	background-repeat:  no-repeat;

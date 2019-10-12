@@ -49,7 +49,8 @@ function setPagerEvent(cb, total) {
   });
 }
 
-function createPager($el, pager) {
+function createPager(pager) {
+  var $el = $("#pager");
   $el.find(".new-item").remove();
   $el.find(".list-records").text(pager.records);
   $el.find(".list-total").text(pager.total);

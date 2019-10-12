@@ -19,8 +19,20 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     private UserDao userDao;
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-    private static final String USER_DEPT_COLUMNS = " a.id, a.name, a.password, a.dept as deptId, b.name as deptName, a.create_by as createId, a.create_date as createDate, a.update_by as updaterId, a.update_date as updateDate ";
-    private static final String DEPT_LEFT_JOIN = " left join dept b on b.id = a.dept ";
+    private static final String USER_DEPT_COLUMNS =
+            "a.id, " +
+            "a.name, " +
+            "a.password, " +
+            "a.group_id as groupId, " +
+            "b.name as groupName, " +
+            "b.dept_id as deptId, " +
+            "c.name as deptName,  " +
+            "a.create_by as createId, " +
+            "a.create_date as createDate, " +
+            "a.update_by as updaterId, " +
+            "a.update_date as updateDate ";
+    private static final String JOIN_TABLES = "left join t_group b on b.id = a.group_id " +
+            "inner join t_dept c on c.id = b.dept_id ";
 
     public UserServiceImpl(HttpSession session) {
         super(session);
@@ -39,7 +51,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         StringBuffer sql = searchSQL();
         StringBuffer countSql = new StringBuffer();
         List<Object> params = new ArrayList<>();
-        countSql.append("select count(*) from user a where 1=1");
+        countSql.append("select count(*) from t_user a where 1=1");
 
         if (StringUtils.isNotEmpty(user.getName())) {
             params.add(user.getName());
@@ -68,11 +80,11 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     private StringBuffer searchSQL() {
-        StringBuffer sql = new StringBuffer("select");
+        StringBuffer sql = new StringBuffer("select ");
         sql.append(USER_DEPT_COLUMNS);
-        sql.append("from user a");
-        sql.append(DEPT_LEFT_JOIN);
-        sql.append("where 1=1");
+        sql.append("from t_user a ");
+        sql.append(JOIN_TABLES);
+        sql.append("where 1=1 ");
         return sql;
     }
 
@@ -120,12 +132,12 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
         if (StringUtils.isNotEmpty(user.getName())) {
             params.add(user.getName());
-            sql.append(" and a.name = ?");
+            sql.append("and a.name = ? ");
         }
 
         if (StringUtils.isNotEmpty(user.getPassword())) {
             params.add(user.getPassword());
-            sql.append(" and a.password = ?");
+            sql.append("and a.password = ? ");
         }
 
         System.out.println("sql:" + sql);
