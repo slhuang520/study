@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import service.UserService;
 import service.base.BaseService;
 import service.impl.UserServiceImpl;
+import utils.JDBCUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -39,12 +41,14 @@ public class LoginServlet extends BaseServlet {
         try {
             System.out.println(System.getProperty("file.encoding"));
             System.out.println(Charset.defaultCharset().name());
-            userService = new UserServiceImpl(req.getSession());
+            Connection connection = JDBCUtils.getConnection();
+            userService = new UserServiceImpl(req.getSession(), connection);
             String methodName = req.getParameter("method");
             System.out.println("login servlet ser....." + methodName);
             Method method = getClass().getDeclaredMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             method.invoke(this, req, resp);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            JDBCUtils.release(connection);
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | SQLException e) {
             e.printStackTrace();
         }
     }

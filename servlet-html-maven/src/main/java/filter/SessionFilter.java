@@ -46,7 +46,7 @@ public class SessionFilter implements Filter {
                 }
                 String contextPath = request.getContextPath();
                 System.out.println("ContextPath=" + contextPath);
-                if (path.contains("/psm")) {
+                if (uri.equals("/psm/")) {
                     response.sendRedirect(contextPath + "/login.html");
                     return;
                 }

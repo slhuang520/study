@@ -7,12 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.DeptService;
 import service.impl.DeptServiceImpl;
+import utils.JDBCUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +34,8 @@ public class DeptServlet extends BaseServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            deptService = new DeptServiceImpl(req.getSession());
+            Connection connection = JDBCUtils.getConnection();
+            deptService = new DeptServiceImpl(req.getSession(), connection);
             String methodName = req.getParameter("method");
             if (StringUtils.isEmpty(methodName)) {
                 logger.error("Service() name is empty.");
@@ -42,7 +45,8 @@ public class DeptServlet extends BaseServlet {
 
             Method method = getClass().getDeclaredMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             method.invoke(this, req, resp);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | IOException e) {
+            JDBCUtils.release(connection);
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | IOException | SQLException e) {
             e.printStackTrace();
         }
     }
