@@ -25,7 +25,8 @@ import java.util.*;
  */
 public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 
-    private DeptDao deptDao = new DeptDao();
+    private DeptDao deptDao;
+    private Connection connection;
     private static final Logger logger = LoggerFactory.getLogger(DeptServiceImpl.class);
     private static final String DEPT_COLUMNS_SEARCH =
             "a.id, " +
@@ -40,8 +41,10 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
     private static final String FIND_SORT_SQL = "order by a.create_date desc ";
     private static final String DEPT_INSERT_SQL = "insert into t_dept (id, name, create_by, create_date, update_by, update_date) values (?, ?, ?, ?, ?, ?)";
 
-    public DeptServiceImpl(HttpSession session) {
+    public DeptServiceImpl(HttpSession session, Connection connection) {
         super(session);
+        this.connection = connection;
+        this.deptDao = new DeptDao();
     }
 
     @Override
@@ -76,7 +79,6 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
         addPageSearch(pager, sql);
 
         Map<String, Object> result = new HashMap<>();
-        Connection connection = JDBCUtils.getConnection();
         result.put("deptList", deptDao.queryList(connection, sql.toString(), params.toArray()));
         System.out.println("-------------->");
         System.out.println(dept);
@@ -117,7 +119,6 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
         params.add(dept.getName());
         insertOperatorParams(dept, params);
 
-        Connection connection = JDBCUtils.getConnection();
 //        deptDao.insert(connection, DEPT_INSERT_SQL, params.toArray());
         return deptDao.update(connection, DEPT_INSERT_SQL, params.toArray());
     }
@@ -149,7 +150,6 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
         sql.append("where id = ? ");
         params.add(dept.getId());
 
-        Connection connection = JDBCUtils.getConnection();
         return deptDao.update(connection, sql.toString(), params.toArray());
     }
 
@@ -170,7 +170,6 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 
         addIdNameSearch(dept, params, sql);
         addOperatorSearch(dept, params, sql);
-        Connection connection = JDBCUtils.getConnection();
         return deptDao.update(connection, sql.toString(), params.toArray());
     }
 
@@ -215,7 +214,6 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
         addIdNameSearch(dept, params, sql);
 //        addOperatorSearch(dept, params, sql);
 
-        Connection connection = JDBCUtils.getConnection();
         return deptDao.update(connection, sql.toString(), params.toArray());
     }
 
@@ -225,7 +223,6 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
         StringBuffer sql = new StringBuffer("select ");
         sql.append(DEPT_COLUMNS_SEARCH);
         sql.append("from t_dept a where a.id = ? ");
-        Connection connection = JDBCUtils.getConnection();
         return deptDao.query(connection, sql.toString(), id);
     }
 }

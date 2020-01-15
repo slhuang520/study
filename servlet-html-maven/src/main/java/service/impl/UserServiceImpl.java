@@ -13,11 +13,12 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Map;
+import java.util.*;
 
 public class UserServiceImpl extends BaseService<User> implements UserService {
 
     private UserDao userDao;
+    private Connection connection;
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private static final String USER_DEPT_COLUMNS =
             "a.id, " +
@@ -34,8 +35,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     private static final String JOIN_TABLES = "left join t_group b on b.id = a.group_id " +
             "inner join t_dept c on c.id = b.dept_id ";
 
-    public UserServiceImpl(HttpSession session) {
+    public UserServiceImpl(HttpSession session, Connection connection) {
         super(session);
+        this.connection = connection;
         this.userDao = new UserDao();
     }
 
@@ -47,7 +49,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @Override
     public Map<String, Object> findAll(User user) throws SQLException {
         logger.info("findAll({}) started..", user);
-        Connection connection = JDBCUtils.getConnection();
         StringBuffer sql = searchSQL();
         StringBuffer countSql = new StringBuffer();
         List<Object> params = new ArrayList<>();
@@ -126,7 +127,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @Override
     public User find(User user) throws SQLException {
         logger.info("find({}) started..", user);
-        Connection connection = JDBCUtils.getConnection();
         StringBuffer sql = searchSQL();
         List<Object> params = new ArrayList<>();
 

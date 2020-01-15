@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瀑布流</title>
+    <script src="lib/jquery-3.3.1.js"></script>
+    <style>
+        .outer {
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+        }
+        .img {
+            width: 150px;
+            vertical-align: top;
+            padding: 6px;
+        }
+    </style>
+    <script>
+        /*
+         *   实现的基本理念:
+         *      等宽不等高
+         *      后一排的追加顺序从前一排高度最小的开始
+         *      可能会在最小的高度位置连续添加多张图片
+         *      全部使用绝对定位
+         */
+        $(window).on("load", waterFall);
+        $(window).on("resize", waterFall);
+        function waterFall() {
+            //取得一行显示几张图
+            var imgs = $(".img");
+            var img_w = imgs.outerWidth();
+            var widow_w = $(".outer").width();
+            var cols = parseInt(widow_w / img_w);
+
+            //取得一行中高度最小的一个
+            var heightArr = [];
+            $.each(imgs, function (idx, img) {
+                if (idx < cols) {
+                    $(img).css({
+                        position: "absolute",
+                        left: img_w * idx + "px",
+                        top: heightArr[idx] || 0 + "px"
+                    });
+                    heightArr.push($(img).outerHeight());
+                } else {
+                    //获取最小的索引，用于追加下一张图片
+                    var min = Math.min.apply(null, heightArr);
+                    var index = heightArr.indexOf(min);
+                    $(img).css({
+                        position: "absolute",
+                        left: img_w * index + "px",
+                        top: heightArr[index] + "px"
+                    });
+                    heightArr[index] += $(img).outerHeight();
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="outer">
+        <img src="../demo/travel_agency/img/hot1.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/s1.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/tour1.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/hot2.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/s2.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/tour2.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/hot3.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/s3.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/tour3.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/hot4.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/s4.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/tour4.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/hot5.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/s5.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/tour5.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/hot6.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/s6.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/tour6.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/hot7.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/s7.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/tour7.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/hot8.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/s8.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/tour8.jpg" alt="" class="img">
+        <img src="../demo/travel_agency/img/tour9.jpg" alt="" class="img">
+    </div>
+</body>
+</html>
