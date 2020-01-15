@@ -1,0 +1,23 @@
+{
+  "name": "gulp_babel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "entry.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "babelify": "^8.0.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.6.1",
+    "browserify": "^16.5.0",
+    "gulp": "^3.9.1",
+    "gulp-watch": "^4.3.11",
+    "gulp-uglify": "^3.0.2",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}
