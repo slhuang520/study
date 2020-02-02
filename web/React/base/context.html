@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React Context</title>
+    <script src="../libs/react.production.min.js"></script>
+    <script src="../libs/react-dom.production.min.js"></script>
+    <script src="../libs/babel.min.js"></script>
+</head>
+<body>
+<h1>
+    Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法<br>
+    Context 提供了一种在组件之间共享此类值的方式，而不必显式地通过组件树的逐层传递 props。<br>
+    Context 设计目的是为了共享那些对于一个组件树而言是“全局”的数据，例如当前认证的用户、主题或首选语言。
+</h1>
+<div id="root"></div>
+
+<script type="text/babel">
+    const themes = {
+        light: {
+            foreground: "#000000",
+            background: "#eeeeee"
+        },
+        dark: {
+            foreground: "#ffffff",
+            background: "#222222"
+        }
+    };
+    //全局监听
+    const ThemeContext = React.createContext(themes.dark);
+
+    class ThemedButton extends React.Component{
+        render(){
+            let props = this.props;
+            let theme = this.context;
+            return (
+                <button {...props} style={{backgroundColor: theme.background}}/>
+            );
+        }
+    }
+    //为button提供全局的主题接口
+    ThemedButton.contextType = ThemeContext;
+
+    function Toolbar(props){
+        return (
+            <ThemedButton onClick={props.changeTheme}>change Theme</ThemedButton>
+        );
+    }
+
+    class App extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {
+                theme: themes.light
+            };
+            this.toggleTheme = () => {
+                this.setState(state => ({
+                    theme: state.theme == themes.dark ? themes.light : themes.dark
+                }));
+            };
+        }
+        render() {
+            return (
+                <div>
+                    <fieldset>
+                        <legend>触发监听，这里可以变更全局的theme变量</legend>
+
+                        <ThemeContext.Provider value={this.state.theme}>
+                            <Toolbar changeTheme={this.toggleTheme}/>
+                        </ThemeContext.Provider>
+                    </fieldset>
+                    <br/>
+                    <fieldset>
+                        <legend>这里不能改变全局的theme变量</legend>
+                        <Toolbar changeTheme={this.toggleTheme}/>
+                        <ThemedButton>Facdback</ThemedButton>
+                    </fieldset>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(<App/>, document.querySelector("#root"));
+</script>
+</body>
+</html>
