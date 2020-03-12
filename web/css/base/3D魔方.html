@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D 魔方</title>
+</head>
+<style>
+    .scene {
+        position: relative;
+        width: 500px;
+        height: 500px;
+        margin: 0 auto;
+        perspective: 800px;
+        perspective-origin: center center;
+        background-color: black;
+    }
+
+    .cube {
+        position: absolute;
+        top: 150px;
+        left: 150px;
+        width: 200px;
+        height: 200px;
+        transform-style: preserve-3d;
+        animation: play 4s 12s infinite linear;
+    }
+    /*.cube::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 3px dotted rgba(0, 0, 0, 0.25);
+        box-sizing: border-box;
+    }*/
+
+    .side {
+        position: absolute;
+        box-sizing: border-box;
+        background-image: url("../img/1.jpg");
+        background-size: cover;
+        opacity: 0;
+    }
+    .side.big {
+        width: 200px;
+        height: 200px;
+    }
+    .side.small {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+    }
+
+    .big.left {
+        -webkit-animation: left-big 2s forwards;
+        -o-animation: left-big 2s forwards;
+        animation: left-big 2s forwards;
+    }
+    @keyframes left-big {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateX(-100px) rotateY(90deg);
+            -moz-transform: translateX(-100px) rotateY(90deg);
+            -ms-transform: translateX(-100px) rotateY(90deg);
+            -o-transform: translateX(-100px) rotateY(90deg);
+            transform: translateX(-100px) rotateY(90deg);
+        }
+    }
+    .cube:hover .big.left {
+        -webkit-animation: left-big-hover 1s forwards;
+        -o-animation: left-big-hover 1s forwards;
+        animation: left-big-hover 1s forwards;
+    }
+    @keyframes left-big-hover {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateX(-150px) rotateY(90deg);
+            -moz-transform: translateX(-150px) rotateY(90deg);
+            -ms-transform: translateX(-150px) rotateY(90deg);
+            -o-transform: translateX(-150px) rotateY(90deg);
+            transform: translateX(-150px) rotateY(90deg);
+        }
+    }
+
+    .small.left {
+        -webkit-animation: left-small 2s forwards;
+        -o-animation: left-small 2s forwards;
+        animation: left-small 2s forwards;
+    }
+    @keyframes left-small {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateX(-50px) rotateY(90deg);
+            -moz-transform: translateX(-50px) rotateY(90deg);
+            -ms-transform: translateX(-50px) rotateY(90deg);
+            -o-transform: translateX(-50px) rotateY(90deg);
+            transform: translateX(-50px) rotateY(90deg);
+        }
+    }
+
+    .big.right {
+        -webkit-animation: right-big 2s 2s forwards;
+        -o-animation: right-big 2s 2s forwards;
+        animation: right-big 2s 2s forwards;
+    }
+    @keyframes right-big {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateX(100px) rotateY(90deg);
+            -moz-transform: translateX(100px) rotateY(90deg);
+            -ms-transform: translateX(100px) rotateY(90deg);
+            -o-transform: translateX(100px) rotateY(90deg);
+            transform: translateX(100px) rotateY(90deg);
+        }
+    }
+    .cube:hover .big.right {
+        -webkit-animation: right-big-hover 1s forwards;
+        -o-animation: right-big-hover 1s forwards;
+        animation: right-big-hover 1s forwards;
+    }
+    @keyframes right-big-hover {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateX(150px) rotateY(90deg);
+            -moz-transform: translateX(150px) rotateY(90deg);
+            -ms-transform: translateX(150px) rotateY(90deg);
+            -o-transform: translateX(150px) rotateY(90deg);
+            transform: translateX(150px) rotateY(90deg);
+        }
+    }
+
+    .small.right {
+        -webkit-animation: right-small 2s 2s forwards;
+        -o-animation: right-small 2s 2s forwards;
+        animation: right-small 2s 2s forwards;
+    }
+    @keyframes right-small {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateX(50px) rotateY(90deg);
+            -moz-transform: translateX(50px) rotateY(90deg);
+            -ms-transform: translateX(50px) rotateY(90deg);
+            -o-transform: translateX(50px) rotateY(90deg);
+            transform: translateX(50px) rotateY(90deg);
+        }
+    }
+
+    .big.top {
+        -webkit-animation: top-big 2s 4s forwards;
+        -o-animation: top-big 2s 4s forwards;
+        animation: top-big 2s 4s forwards;
+    }
+    @keyframes top-big {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateY(-100px) rotateX(90deg);
+            -moz-transform: translateY(-100px) rotateX(90deg);
+            -ms-transform: translateY(-100px) rotateX(90deg);
+            -o-transform: translateY(-100px) rotateX(90deg);
+            transform: translateY(-100px) rotateX(90deg);
+        }
+    }
+    .cube:hover .big.top {
+        -webkit-animation: top-big-hover 1s forwards;
+        -o-animation: top-big-hover 1s forwards;
+        animation: top-big-hover 1s forwards;
+    }
+    @keyframes top-big-hover {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateY(-150px) rotateX(90deg);
+            -moz-transform: translateY(-150px) rotateX(90deg);
+            -ms-transform: translateY(-150px) rotateX(90deg);
+            -o-transform: translateY(-150px) rotateX(90deg);
+            transform: translateY(-150px) rotateX(90deg);
+        }
+    }
+
+    .small.top {
+        -webkit-animation: top-small 2s 4s forwards;
+        -o-animation: top-small 2s 4s forwards;
+        animation: top-small 2s 4s forwards;
+    }
+    @keyframes top-small {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateY(-50px) rotateX(90deg);
+            -moz-transform: translateY(-50px) rotateX(90deg);
+            -ms-transform: translateY(-50px) rotateX(90deg);
+            -o-transform: translateY(-50px) rotateX(90deg);
+            transform: translateY(-50px) rotateX(90deg);
+        }
+    }
+
+    .big.bottom {
+        -webkit-animation: bottom-big 2s 6s forwards;
+        -o-animation: bottom-big 2s 6s forwards;
+        animation: bottom-big 2s 6s forwards;
+    }
+    @keyframes bottom-big {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateY(100px) rotateX(90deg);
+            -moz-transform: translateY(100px) rotateX(90deg);
+            -ms-transform: translateY(100px) rotateX(90deg);
+            -o-transform: translateY(100px) rotateX(90deg);
+            transform: translateY(100px) rotateX(90deg);
+        }
+    }
+    .cube:hover .big.bottom {
+        -webkit-animation: bottom-big-hover 1s forwards;
+        -o-animation: bottom-big-hover 1s forwards;
+        animation: bottom-big-hover 1s forwards;
+    }
+    @keyframes bottom-big-hover {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateY(150px) rotateX(90deg);
+            -moz-transform: translateY(150px) rotateX(90deg);
+            -ms-transform: translateY(150px) rotateX(90deg);
+            -o-transform: translateY(150px) rotateX(90deg);
+            transform: translateY(150px) rotateX(90deg);
+        }
+    }
+
+    .small.bottom {
+        -webkit-animation: bottom-small 2s 6s forwards;
+        -o-animation: bottom-small 2s 6s forwards;
+        animation: bottom-small 2s 6s forwards;
+    }
+    @keyframes bottom-small {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateY(50px) rotateX(90deg);
+            -moz-transform: translateY(50px) rotateX(90deg);
+            -ms-transform: translateY(50px) rotateX(90deg);
+            -o-transform: translateY(50px) rotateX(90deg);
+            transform: translateY(50px) rotateX(90deg);
+        }
+    }
+
+    .big.back {
+        -webkit-animation: back-big 2s 8s forwards;
+        -o-animation: back-big 2s 8s forwards;
+        animation: back-big 2s 8s forwards;
+    }
+    @keyframes back-big {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateZ(-100px);
+            -moz-transform: translateZ(-100px);
+            -ms-transform: translateZ(-100px);
+            -o-transform: translateZ(-100px);
+            transform: translateZ(-100px);
+        }
+    }
+    .cube:hover .big.back {
+        -webkit-animation: back-big-hover 1s forwards;
+        -o-animation: back-big-hover 1s forwards;
+        animation: back-big-hover 1s forwards;
+    }
+    @keyframes back-big-hover {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateZ(-150px);
+            -moz-transform: translateZ(-150px);
+            -ms-transform: translateZ(-150px);
+            -o-transform: translateZ(-150px);
+            transform: translateZ(-150px);
+        }
+    }
+
+    .small.back {
+        -webkit-animation: back-small 2s 8s forwards;
+        -o-animation: back-small 2s 8s forwards;
+        animation: back-small 2s 8s forwards;
+    }
+    @keyframes back-small {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateZ(-50px);
+            -moz-transform: translateZ(-50px);
+            -ms-transform: translateZ(-50px);
+            -o-transform: translateZ(-50px);
+            transform: translateZ(-50px);
+        }
+    }
+
+    .big.front {
+        -webkit-animation: front-big 2s 10s forwards;
+        -o-animation: front-big 2s 10s forwards;
+        animation: front-big 2s 10s forwards;
+    }
+    @keyframes front-big {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateZ(100px);
+            -moz-transform: translateZ(100px);
+            -ms-transform: translateZ(100px);
+            -o-transform: translateZ(100px);
+            transform: translateZ(100px);
+        }
+    }
+    .cube:hover .big.front {
+        -webkit-animation: front-big-hover 1s forwards;
+        -o-animation: front-big-hover 1s forwards;
+        animation: front-big-hover 1s forwards;
+    }
+    @keyframes front-big-hover {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateZ(150px);
+            -moz-transform: translateZ(150px);
+            -ms-transform: translateZ(150px);
+            -o-transform: translateZ(150px);
+            transform: translateZ(150px);
+        }
+    }
+
+    .small.front {
+        -webkit-animation: front-small 2s 10s forwards;
+        -o-animation: front-small 2s 10s forwards;
+        animation: front-small 2s 10s forwards;
+    }
+    @keyframes front-small {
+        100% {
+            opacity: .5;
+            -webkit-transform: translateZ(50px);
+            -moz-transform: translateZ(50px);
+            -ms-transform: translateZ(50px);
+            -o-transform: translateZ(50px);
+            transform: translateZ(50px);
+        }
+    }
+
+    @keyframes play {
+        0% {
+            transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+        }
+        100% {
+            transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+        }
+    }
+</style>
+<body>
+<div class="scene">
+    <div class="cube">
+        <div class="side big back"></div>
+        <div class="side big left"></div>
+        <div class="side big right"></div>
+        <div class="side big top"></div>
+        <div class="side big bottom"></div>
+        <div class="side big front"></div>
+
+        <div class="side small back"></div>
+        <div class="side small left"></div>
+        <div class="side small right"></div>
+        <div class="side small top"></div>
+        <div class="side small bottom"></div>
+        <div class="side small front"></div>
+    </div>
+</div>
+<script>
+    /*const scene = document.querySelector('.scene');
+
+    var step = 0;
+    function changeStep() {
+        step++;
+        if (step === 7) step = 0;
+        scene.classList[step > 0 ? 'add' : 'remove']('show-back');
+        scene.classList[step > 1 ? 'add' : 'remove']('show-left');
+        scene.classList[step > 2 ? 'add' : 'remove']('show-right');
+        scene.classList[step > 3 ? 'add' : 'remove']('show-top');
+        scene.classList[step > 4 ? 'add' : 'remove']('show-bottom');
+        scene.classList[step > 5 ? 'add' : 'remove']('show-front');
+    }
+
+    setInterval(changeStep, 3000);*/
+</script>
+</body>
+</html>
