@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>面试题</title>
+    <style>
+        /*清除浮动*/
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    /*
+    //1.
+    function test() {
+        console.log(n); //undefined
+        n = 4;
+        console.log(n); //4
+        var n;
+        console.log(n == 4.toString()); //4.toString()出错
+    }
+
+    var n = 1;
+    test(n);
+
+    //2.
+    (function () {
+        var a = b = 3;
+    })();
+    console.log(b); //3
+    console.log(a); //a is not defined
+
+    //3.
+    var a = 10;
+    function test() {
+        a = 100;
+        console.log(a); //100
+        console.log(this.a); //10
+        var a;
+        console.log(a); //100
+    }
+    test();
+    console.log(a); //10
+
+    //4.
+    for (var i = 0; i < 3; i++) {
+        setTimeout(function () {
+            console.log(i);
+        }, 0);
+    }
+    //3
+    //3
+    //3
+
+    //5.
+    setTimeout(function () {
+        console.log(1);
+    }, 0);
+    Promise.resolve(console.log(2));
+    //2
+    //1
+
+    //6、
+    for (let i = 0; i < 3; i++) {
+        setTimeout(function () {
+            console.log(i);
+        });
+    }
+    console.log(i);
+    //i is not defined
+    //1
+    //2
+    //3
+
+    //7.
+    var length = 100;
+    function t1() {
+        console.log(this.length);
+    }
+
+    var obj = {
+        length: 10,
+        t2: function () {
+            t1(); //100
+            arguments[0](); //2,这里的this为arguments对象，相当于arguments.0()
+        }
+    };
+
+    obj.t2(t1, 1);
+
+    //8. call apply bind的作用和差别
+    */
+
+    /*
+    Ajax原理:
+
+(1)创建对象
+var xhr = new XMLHttpRequest();
+
+(2)打开请求
+xhr.open('GET', 'example.txt', true);
+
+(3)发送请求
+xhr.send(); 发送请求到服务器
+
+(4)接收响应
+xhr.onreadystatechange =function(){}
+(1)当readystate值从一个值变为另一个值时，都会触发readystatechange事件。
+(2)当readystate==4时，表示已经接收到全部响应数据。
+(3)当status ==200时，表示服务器成功返回页面和数据。
+(4)如果(2)和(3)内容同时满足，则可以通过xhr.responseText，获得服务器返回的内容。
+
+
+冒泡排序算法:
+
+写一个冒泡排序
+var array = [5, 4, 3, 2, 1];
+var temp = 0;
+for (var i = 0; i <array.length; i++){
+for (var j = 0; j <array.length - i; j++){
+if (array[j] > array[j + 1]){
+temp = array[j + 1];
+array[j + 1] = array[j];
+array[j] = temp;
+ }
+}
+     */
+/*//1.
+    var test = function test1() {
+        var a = b = 4;
+        this.name = a;
+        return + function test() { // 将一个函数声明变成表达式的方式： + - ！ && ||
+            return a + arguments.callee.length;
+        }(); //IIFE
+    }
+
+    var c = test1(); //Uncaught ReferenceError: test1 is not defined
+    var len = test.name; //4
+    switch (len) {
+        case a: //Uncaught ReferenceError: a is not defined
+            console.log(a);
+
+        case b:
+            console.log(b);
+
+        case c:
+            console.log(c);
+    }
+
+    //2. 5050
+    var sum = (function (n) {
+        if (n <= 1) return 1;
+        return n + arguments.callee(n - 1);
+    })(100);
+    //5050
+*/
+
+  /*
+  //3.值是什么？为什么？
+  function a() {
+      var arr = [];
+      for (var i = 0; i < 10; i++) {
+          (function (i) {
+              var j = i;
+              arr.push(function (j) {
+                  document.write(i); //0123456789
+              });
+          }(i));
+          // arr.push(function () {
+          //     document.write(i);//10 10 10 10 10 10 10 10 10 10
+          // });
+      }
+      return arr;
+  }
+  var arr = a();
+  for (var i = 0; i < 10; i++) {
+      arr[i]();
+  }
+*/
+
+  /*
+  //4.
+    function test(name) {
+        this.name = name;
+        return {
+            name: test.name
+        };
+    }
+
+    var a = test("a");
+    console.log(a.name); //test
+    var b = new test("b");
+    console.log(b.name); //test
+*/
+/*
+    //5.
+    function Test(name) {
+        this.name = name;
+    }
+    //说明下面下个的区别
+    Test(1); //this -> window
+    new Test(1); //this -> 当前实例， new的作用
+*/
+
+/*
+///6.原始值没有自己的方法和属性
+    var a = 1;
+    a.length = "a";
+    //将a变成相应的包装类,相当于new Number(1).length = "a"，但由于这个值(没有赋值，
+                    //系统不会自动给你创建一个值来保存)没地方保存，只能存在temp堆中，等这句话执行完了，没有引用了，就回收了，
+                    //系统又执行了删除 delete new Number(1).length = "a"
+    console.log(a.length);//所以最后，a.length == undefined
+
+    var b = "1";
+    b.length = "b"; //会被删除，没有保存下来
+    console.log(b.length); //1 length是String原型上面的
+
+    var c = [1, 2, 3, 4, 5];
+    c.length = 2;
+    console.log(c); //[1, 2]
+*/
+
+/*
+//7. 逗号（,）表达式：返回最后一个逗号的值
+    function test(a, b, c) {
+        console.log(a + b + c);
+    }(1, 2, 3);
+    //结果为3
+    //原因：上面是两个代码块，一个函数声明，一个是表达式，test函数只声明没有执行，(1, 2, 3)表达式被执行了。
+*/
+/*
+//8.
+    function Test(name) {
+        this.name = name;
+    }
+    Test.prototype.age = 12;
+    var a = new Test("张三");
+    console.log(a.age); //12
+    Test.prototype.age = 13;
+    console.log(a.age); //13
+    Test.prototype = {//不会改变上面已经实例化的a的 __proto__
+        age: 14
+    };
+    console.log(a.age); //13
+    Test.prototype.age = 15;
+    console.log(a.age); //13
+*/
+/*
+//9.
+    function A() {
+        this.a = 10;
+    }
+    var a = new A();
+    function B() {
+        this.b = 20;
+    }
+    B.prototype = a;
+    var b = new B();
+    console.log(b); //B {b: 20}
+    console.log(b.__proto__); // A
+    console.log(b.__proto__.__proto__); //Object
+    console.log(b.__proto__.__proto__.__proto__); //Object.prototype
+    console.log(b.__proto__.__proto__.__proto__.__proto__); //null
+    b.a++;
+    console.log(a, b); //A {a: 10} B {b: 20, a: 11}
+*/
+/*
+//10.
+    A.prototype = {};
+    function A() {
+
+    }
+    var a = new A();
+    function B() {
+
+    }
+    B.prototype = a;
+    var b = new B();
+    function C() {
+
+    }
+    C.prototype = b;
+    console.log(new C()); //若需要实现这种结果，代码应该如何写？
+*/
+
+/*
+//11.这题不要。
+    A.prototype.a = "aa";
+    function A() {
+        this.a = "a";
+    }
+    var a = new A();
+
+    function B() {
+        this.b = "b";
+    }
+    B.prototype = a;
+    B.prototype.constructor = B; //后面需要指定constructor
+    var b = new B();
+
+    function C() {
+        this.c = "c";
+    }
+    C.prototype = b;
+    C.prototype.constructor = C;
+    var c = new C();
+    console.log(c);
+*/
+
+
+//12.数组push方法的源码：
+    /*Array.prototype.push = function () {
+        for (var arg in arguments) {
+            if (arguments.hasOwnProperty(arg)) {
+                this[this.length] = arguments[arg];
+            }
+        }
+        return this.length;
+    };*/
+
+ /*   //13.
+    var obj = {
+        "2": 3,
+        "3": 4,
+        length: 2,
+        push: Array.prototype.push
+    };
+    obj.push(1);
+    obj.push(2);
+    console.log(obj);
+//{2: 1, 3: 2, length: 4, push: ƒ}
+//没回 splice 返回的是一个对象
+*/
+
+    var obj = {
+        "2": 3,
+        "3": 4,
+        length: 2,
+        push: Array.prototype.push,
+        splice: Array.prototype.splice
+    };
+    obj.push(1);
+    obj.push(2);
+    console.log(obj);
+    //Object(4) [empty × 2, 1, 2, push: ƒ, splice: ƒ]
+    //只要加了 splice 返回的是一相数组
+
+
+
+
+
+</script>
+
+</body>
+</html>
