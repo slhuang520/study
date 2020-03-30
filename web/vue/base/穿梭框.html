@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>穿梭框</title>
+    <!--阿里巴巴 icon font-->
+    <link rel="stylesheet" href="../lib/iconfont/iconfont.css">
+
+    <style>
+        body {
+            position: relative;
+            width:60%;
+            margin: 10px auto;
+        }
+        ul, li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .mod {
+            overflow: scroll;
+            width: 400px;
+            height: 500px;
+            border: 1px solid red;
+            display: inline-block;
+        }
+        .r-item-block {
+            position: relative;
+            display: inline-block;
+        }
+        .r-item-block:hover {
+            cursor: pointer;
+        }
+        .r-item-block:hover .del {
+            display: inline-block;
+            background-color: red;
+        }
+        .r-item-block:hover .item {
+            background-color: #999;
+        }
+
+        .mod::-webkit-scrollbar{
+            display: none; /*Chrome & Safari*/
+        }
+        .mod {
+            overflow: -moz-scrollbars-none; /*Firfox*/
+            -ms-overflow-style: none; /*IE10+*/
+        }
+
+        .left {
+            margin-left: 10px;
+            float: left;
+        }
+        .mid {
+            height: 500px;
+            margin-left: 20px;
+            /*设置为伸缩容器*/
+            display: -webkit-box;
+            display: -moz-inline-box;
+            display: -ms-inline-flexbox;
+            display: -webkit-inline-flex;
+            display: inline-flex;
+            /*垂直居中*/
+            -webkit-box-align: center;/*旧版本*/
+            -moz-box-align: center;/*旧版本*/
+            -ms-flex-align: center;/*混合版本*/
+            -webkit-align-items: center;/*新版本*/
+            align-items: center;/*新版本*/
+        }
+        .mid li {
+            font-size: 40px;
+        }
+        .mid li:hover {
+            cursor: pointer;
+            color: blue;
+        }
+        .right {
+            margin-right: 10px;
+            float: right;
+        }
+
+        .item {
+            border: 1px solid #666;
+            padding: 5px 10px;
+            margin: 5px;
+            position: relative;
+            display: inline-block;
+            background-color: grey;
+            cursor: pointer;
+        }
+        .right .del {
+            display: none;
+            position: absolute;
+            right: 5px;
+            margin-top: 5px;
+            border-left: 1px solid #666;
+            border-bottom: 1px solid #666;
+        }
+        .item.active {
+            background-color: blue;
+            color: white;
+        }
+
+    </style>
+
+    <script src="../lib/vue.min.js"></script>
+    <script>
+        window.onload = function () {
+            new Vue({
+                el: "#app",
+                data: {
+                    items: [
+                        {id: 1, title: "Java", isChecked: false},
+                        {id: 2, title: "JavaScript", isChecked: true},
+                        {id: 3, title: "Vue", isChecked: false},
+                        {id: 4, title: "CSS", isChecked: false},
+                        {id: 5, title: "CSS3", isChecked: false},
+                        {id: 6, title: "HTML", isChecked: false},
+                        {id: 7, title: "HTML5", isChecked: false},
+                        {id: 8, title: "NodeJS", isChecked: false},
+                        {id: 9, title: "AngularJS", isChecked: false},
+                        {id: 10, title: "Bootstrap", isChecked: false},
+                        {id: 11, title: "Spring", isChecked: false},
+                        {id: 12, title: "MVC", isChecked: false},
+                        {id: 13, title: "Springboot", isChecked: false}
+                    ]
+                },
+                methods: {
+                    itemClick(item) {
+                        item.isChecked = true;
+                    },
+                    remove(item) {
+                        // this.items.map(item => {
+                        //     if (item.id === id) {
+                        //         item.isChecked = false;
+                        //     }
+                        // });
+                        item.isChecked = false;
+                    },
+                    removeAll() {
+                        this.items.map(item => {
+                            item.isChecked = false;
+                        });
+                    },
+                    checkAll() {
+                        this.items.map(item => {
+                            item.isChecked = true;
+                        })
+                    }
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <div id="app">
+        <div class="mod left" id="left">
+            <span class="item" v-for="item in items"
+                  :class="{active: item.isChecked}"
+                  :key="item.id"
+                  @click="itemClick(item)">{{item.title}}</span>
+        </div>
+        <div class="mid">
+            <ul>
+                <!--<li class="icon iconfont" title="向右移动">&#xe625;</li>-->
+                <li class="icon iconfont" title="全部向右移动" @click="checkAll">&#xe619;</li>
+                <br/>
+                <!--<li class="icon iconfont" title="向左移动">&#xe626;</li>-->
+                <li class="icon iconfont" title="全部向左移动" @click="removeAll">&#xe61c;</li>
+            </ul>
+        </div>
+        <div class="mod right" id="right">
+            <div class="r-item-block" v-for="item in items" :key="item.id" v-if="item.isChecked">
+                <span class="item">{{item.title}}</span>
+                <span class="icon iconfont del" title="移除" @click="remove(item)">&#xe616;</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

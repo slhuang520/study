@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务列表</title>
+    <link rel="stylesheet" href="css/taskList.css">
+    <script src="../../lib/vue.min.js"></script>
+</head>
+<body>
+    <div class="page-top">
+        <div class="page-content">
+            <h2>任务计划列表</h2>
+        </div>
+    </div>
+
+    <div class="main">
+        <h3 class="big-title">添加任务</h3>
+        <input type="text"
+               placeholder="例如：吃饭睡觉打豆豆  提示：+回车就可以添加任务"
+               class="task-input"
+               @keyup.enter="addTodo()"
+               v-model="todo"
+        >
+        <ul class="task-count" v-show="list.length">
+            <li class="msg" v-if="idx==0">{{unCheckedCount}}个未完成任务</li>
+            <li class="msg" v-if="idx==1">{{checkedCount}}个完成任务</li>
+            <li class="msg" v-if="idx==2">{{list.length}}个所有任务</li>
+            <li class="action">
+                <a href="#" v-on:click="active(0)" class="active">未完成的任务</a>
+                <a href="#" v-on:click="active(1)">完成的任务</a>
+                <a href="#" v-on:click="active(2)">所有任务</a>
+            </li>
+        </ul>
+
+        <h3>任务列表</h3>
+        <span v-show="(idx==0 && !unCheckedCount)||(idx==1 && !checkedCount)||(idx==2 && !list.length)">目前还没有添加任何任务</span>
+        <div>
+            <ol class="list">
+                <li v-if="(idx==0 && !obj.isChecked)||(idx==1 && obj.isChecked)||(idx==2)" v-for="obj in list">
+                    <div v-show="editItem!=obj">
+                        <input type="checkbox" v-model="obj.isChecked"><h4 :class="{completed:obj.isChecked}" @dblclick="edit(obj)">{{obj.name}}</h4><i @click="del(obj)">×</i>
+                    </div>
+                    <input type="text"
+                           class="edit"
+                           v-show="editItem && editItem === obj"
+                           v-model="editItem.name"
+                           v-focus="obj === editItem"
+                           @blur="blur(obj)"
+                           @keyup.enter="blur(obj)"
+                           @keyup.esc="rollback(obj)"
+                    >
+                </li>
+            </ol>
+        </div>
+    </div>
+<script src="js/taskList.js"></script>
+</body>
+</html>

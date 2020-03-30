@@ -1,0 +1,7 @@
+已经将 python 设置成全局变量了。
+
+定位到：
+G:\web\nodeJS\mongoDB\python>
+
+直接运行：
+python test.py

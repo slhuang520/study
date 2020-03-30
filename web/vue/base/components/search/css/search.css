@@ -1,0 +1,64 @@
+section {
+    border: 1px solid grey;
+    border-radius: 15px;
+    width: 292px;
+}
+section h1 {
+    display: none;
+}
+section header {
+    height: 52px;
+    line-height: 52px;
+}
+section input {
+    background: #eee url("../img/search.png") no-repeat 3px;
+    background-size: 26px;
+    height: 30px;
+    line-height: 30px;
+    width: 200px;
+    margin: 10px;
+    border-radius: 15px;
+    text-indent: 36px;
+    font-size: 22px;
+    border: 1px solid orange;
+    float: left;
+}
+section input:focus {
+    outline: none;
+}
+section button {
+    border-radius: 15px;
+    height: 34px;
+    width: 50px;
+    border: none;
+    margin: 10px;
+    background-color: orange;
+    float: left;
+    cursor: pointer;
+}
+section button:focus {
+    outline: none;
+}
+section button:hover {
+    background-color: #8c2a1b;
+}
+section ul {
+    list-style: none;
+    margin: 0 0 10px 10px;
+    padding: 0;
+    width: 200px;
+}
+section ul li {
+    height: 26px;
+    line-height: 26px;
+    padding-left: 10px;
+}
+section ul li:first-child {
+    line-height: 22px;
+}
+section ul li:hover {
+    border: none;
+    background-color: orange;
+    border-radius: 15px;
+    cursor: pointer;
+}

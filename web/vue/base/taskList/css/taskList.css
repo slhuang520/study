@@ -1,0 +1,110 @@
+@charset "utf-8";
+html, body, h2 {
+    margin: 0;
+    padding: 0;
+}
+.page-top {
+    width: 100%;
+    text-align: center;
+    background-color: #1b6d85;
+}
+.page-content {
+    padding: 5px;
+}
+.main {
+    width: 80%;
+    margin: 0 auto;
+}
+.task-input {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+}
+.task-count {
+    padding: 0;
+    border-bottom: 1px solid gray;
+}
+.task-count li{
+    list-style: none;
+    margin: 10px;
+    display: inline-block;
+    height: 22px;
+}
+.task-count .action {
+    float: right;
+}
+.task-count li a {
+    border: 1px solid grey;
+    padding: 5px;
+    margin: 0;
+    text-decoration: none;
+    float: left;
+}
+/*.task-count a::after{
+    content: "";
+}*/
+.task-count li a:not(:first-child) {
+    border-left: none;
+}
+.task-count .msg {
+    color: #8c2a1b;
+}
+.task-count .active {
+    background-color: lightgray;
+    border-bottom-color: lightgray;
+}
+
+.list {
+    cursor: pointer;
+}
+.list li {
+    border: 1px solid lightgray;
+    position: relative;
+    height: 40px;
+}
+.list li:nth-child(2n) {
+    background-color: #eee;
+}
+.list li:hover {
+    background-color: #ddd;
+}
+.list h4 {
+    margin: 0;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    padding-left: 5px;
+}
+.list i {
+    float: right;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    border: 1px solid #666;
+    border-radius: 50% 50%;
+    font-family: monospace;
+    margin-top: 12px;
+    margin-right: 10px;
+    border-radius: 50% 50%;
+}
+.list i:hover {
+    background-color: mediumvioletred;
+}
+.list .edit {
+    width: 90%;
+    height: 34px;
+    line-height: 34px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.list .completed {
+    color: #aaa;
+    text-decoration-line: line-through;
+}
+.list input[type="checkbox"] {
+    width: 28px;
+    height: 28px;
+    margin-top: 7px;
+    float: left;
+}
