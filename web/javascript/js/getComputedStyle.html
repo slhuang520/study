@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>window.getComputedStyle</title>
+    <style>
+        div {
+            width: 300px;
+            height: 300px;
+            background-color: lightcoral;
+            border: solid 1px #999; /*BFC原理去掉margin重叠*/
+        }
+        div[data-desc]::after {
+            content: attr(data-desc);
+            display: block;
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            margin: 50% auto;
+        }
+    </style>
+</head>
+<body>
+    <div data-desc="">
+        :after与::after基本上是一样的,一个是CSS2的语法,一个是CSS3的语法
+    </div>
+    <script>
+        var divEle = document.getElementsByTagName("div")[0];
+        var divStyle = window.getComputedStyle(divEle, null); //null是啥
+        divEle.setAttribute("data-desc", divStyle.width + ":" + divStyle.height);
+        console.log(divStyle.width);
+
+        //获取伪元素的style
+        var divAfterStyle = window.getComputedStyle(divEle, "after");
+        console.log(divAfterStyle.width);
+
+        //css：after和：before规则不是DOM的一部分，因此不能使用js的DOM方法进行获取。
+        addEvent(divEle, "mouseenter", function (e) {
+            var e = e || window.event;
+            // e.target.classList.add("hover");
+            //e.target也拿不到 ::after 伪元素
+            e.currentTarget.setAttribute("data-desc", divAfterStyle.width + ":" + divAfterStyle.height);
+        });
+        addEvent(divEle, "mouseout", function (e) {
+            var e = e || window.event;
+            // e.target.classList.remove("hover");
+            e.currentTarget.setAttribute("data-desc", divStyle.width + ":" + divStyle.height);
+        });
+
+        function addEvent(dom, type, fn, useCapture) {
+            if (document.addEventListener) { //所有主流浏览器，除了 IE 8 及更早 IE版本
+                dom.addEventListener(type, fn, useCapture);
+            } if (document.attachEvent) { // IE 8 及更早 IE 版本
+                dom.attachEvent("on" + type, fn, useCapture);
+            } else {
+                dom["on" + type] = fn;
+            }
+        }
+
+        function removeEvent(dom, type, fn, useCapture) {
+            if (document.removeEventListener) { //所有主流浏览器，除了 IE 8 及更早 IE版本
+                dom.removeEventListener(type, fn, useCapture);
+            } if (document.detachEvent) { // IE 8 及更早 IE 版本
+                dom.detachEvent("on" + type, fn, useCapture);
+            } else {
+                dom["on" + type] = null;
+            }
+        }
+    </script>
+
+    <p>这是上面代码的实现<br />
+        我们有一些 <span data-descr="collection of words and punctuation">文字</span> 有一些
+        <span data-descr="small popups which also hide again">提示</span>。<br />
+        把鼠标放上去<span data-descr="not to be taken literally">看看</span>.
+    </p>
+</body>
+<style>
+    span[data-descr] {
+        position: relative;
+        text-decoration: underline;
+        color: #00F;
+        cursor: help;
+    }
+
+    span[data-descr]:hover::after {
+        content: attr(data-descr);
+        position: absolute;
+        left: 0;
+        top: 24px;
+        min-width: 200px;
+        border: 1px #aaaaaa solid;
+        border-radius: 10px;
+        background-color: #ffffcc;
+        padding: 12px;
+        color: #000000;
+        font-size: 14px;
+        z-index: 1;
+    }
+</style>
+</html>
