@@ -4,8 +4,18 @@
   "description": "npm init",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build1": "babel Promise.js -o build.js",
+    "build": "babel src -d dist",
+    "running": "babel-node ./dist/TestMyPromise.js"
   },
-  "author": "slhuang",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "~7.9.0",
+    "@babel/node": "~7.8.7",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/register": "~7.9.0",
+    "core-js": "^3.6.5"
+  }
 }
