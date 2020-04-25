@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build1": "babel Promise.js -o build.js",
     "build": "babel src -d dist",
-    "running": "babel-node ./dist/TestMyPromise.js"
+    "run-promise": "babel-node ./dist/promise/TestMyPromise.js",
+    "run-iterator": "babel-node ./dist/iterator/Test.js"
   },
   "license": "ISC",
   "devDependencies": {
