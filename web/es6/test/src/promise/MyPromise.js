@@ -14,6 +14,8 @@ require("core-js/modules/es.array.iterator");
 
 require("core-js/modules/es.array.slice");
 
+require("core-js/modules/es.array.splice");
+
 require("core-js/modules/es.date.to-string");
 
 require("core-js/modules/es.function.bind");
@@ -94,9 +96,8 @@ var MyPromise = /*#__PURE__*/function () {
         var _value$handlers;
 
         //是否返回的是一个 Promise 对象
-        (_value$handlers = value.handlers).push.apply(_value$handlers, _toConsumableArray(this.handlers));
+        (_value$handlers = value.handlers).push.apply(_value$handlers, _toConsumableArray(this.handlers.splice(0)));
 
-        this.handlers = [];
         return;
       }
 
@@ -114,9 +115,8 @@ var MyPromise = /*#__PURE__*/function () {
       if (value && typeof value.then === "function") {
         var _value$handlers2;
 
-        (_value$handlers2 = value.handlers).push.apply(_value$handlers2, _toConsumableArray(this.handlers));
+        (_value$handlers2 = value.handlers).push.apply(_value$handlers2, _toConsumableArray(this.handlers.splice(0)));
 
-        this.handlers = [];
         return;
       }
 
