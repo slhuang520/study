@@ -7,20 +7,23 @@ class TestMyPromise {
 
     doSomeThing() {
         return new Promise(function (resolve, reject) {
-            resolve(66);
-            // reject(777);
+            setTimeout(function () {
+                // resolve(66);
+                reject(777);
+            }, 2000);
+        // });
         }).then().then(123);
     }
 
     test() {
         this.doSomeThing()
-            .then(function (val) {
-                console.log("first:", val);
-                return 88;
-            }, function (val) {
-                console.log(val, "reject");
-                return 588;
-            }).then(function (val) {
+        .then(function (val) {
+            console.log("first:", val);
+            return 88;
+        }, function (val) {
+            console.log(val, "reject");
+            return 588;
+        }).then(function (val) {
             console.log("second:", val);
             return new Promise(function (resolve, reject) {
                 console.log("inner promise");
@@ -36,6 +39,8 @@ class TestMyPromise {
             });
         }).then(function (val) {
             console.log("third:", val);
+        }).catch(function (e) {
+            console.log("catch", e);
         });
     }
 }

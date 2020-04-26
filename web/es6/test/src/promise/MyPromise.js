@@ -6,12 +6,10 @@ const STATUS_RESOLVED = "resolved";
 const STATUS_REJECTED = "rejected";
 class MyPromise {
     constructor(fn) {
-        //原生的 Promise 应该是这样来实现的
-        // this.handlers = [];
-        this.handlers = {
-            resolve: [],
-            reject: []
-        };
+        this.catchAble = false;
+        this.isRejected = false;
+        this.state = STATUS_PENDING;
+        this.handlers = [];
         this.frontVal;
         setTimeout(() => {
             fn(this.resolve.bind(this), this.reject.bind(this));
@@ -19,89 +17,84 @@ class MyPromise {
     }
 
     then(resolve, reject) {
-        // this.handlers.push({resolve,reject});
-        this.handlers.resolve.push(resolve);
-        this.handlers.reject.push(reject);
+        this.handlers.push({resolve,reject});
         return this;
     }
 
     resolve(value){
         if (value && typeof value.then === "function") {
-            // value.handlers.push(...this.handlers);
-            // this.handlers = [];
-            value.handlers.resolve.push(...this.handlers.resolve);
-            value.handlers.reject.push(...this.handlers.reject);
-            this.handlers = {
-                resolve: [],
-                reject: []
-            };
+            value.handlers.push(...this.handlers);
+            this.handlers = [];
         }
         this.frontVal = value;
-        if (MyPromise.state === STATUS_PENDING) {
-            MyPromise.state = STATUS_RESOLVED;
+        if (this.state === STATUS_PENDING) {
+            this.state = STATUS_RESOLVED;
         }
         this.deal();
     }
 
     reject(value) {
         if (value && typeof value.then === "function") {
-            // value.handlers.push(...this.handlers);
-            // this.handlers = [];
-            value.handlers.resolve.push(...this.handlers.resolve);
-            value.handlers.reject.push(...this.handlers.reject);
-            this.handlers = {
-                resolve: [],
-                reject: []
-            };
+            value.handlers.push(...this.handlers);
+            this.handlers = [];
         }
 
         this.frontVal = value;
-        MyPromise.state = STATUS_REJECTED;
+        this.state = STATUS_REJECTED;
         this.deal();
     }
 
+    catch(fun) {
+        this.handlers.push({
+            resolve: undefined,
+            reject: fun
+        });
+        this.catchAble = true;
+    }
+
     deal() {
+        let funObj = this.findFn(),
+            fn;
 
-        // if (!this.handlers.length) {
-        //     return;
-        // }
-        //
-        // let funObj = this.handlers.shift(),
-        //     fn;
-        // if (MyPromise.state === STATUS_RESOLVED) {
-        //     fn = funObj.resolve;
-        // } else if (MyPromise.state === STATUS_REJECTED) {
-        //     fn = funObj.reject;
-        // }
-        //
-        // if (typeof fn === "function"){
-        //     this.resolve(fn(this.frontVal));
-        // } else {
-        //     this.resolve(fn() || this.frontVal);
-        // }
-
-
-        let handlers,
-            len;
-
-        if (MyPromise.state === STATUS_RESOLVED) {
-            handlers = this.handlers.resolve;
-        } else if (MyPromise.state === STATUS_REJECTED) {
-            handlers = this.handlers.reject;
+        if (!funObj) {
+            return;
         }
-        len = handlers.length;
+        if (this.state === STATUS_RESOLVED) {
+            fn = funObj.resolve;
+        } else if (this.state === STATUS_REJECTED) {
+            fn = funObj.reject;
+        }
 
-        if (!len){
+        if ((!fn || typeof fn !== "function") && this.state === STATUS_REJECTED) {
+            if (this.catchAble) {
+                this.isRejected = true;
+                return this.deal();
+            }
+            throw new Error("Exist Un-catched Error!");
+        }
+        this.state = STATUS_RESOLVED;
+
+        if (typeof fn === "function"){
+            this.resolve(fn(this.frontVal));
+        } else {
+            this.resolve(fn || this.frontVal);
+        }
+    }
+
+    findFn() {
+        if (!this.handlers.length) {
             return;
         }
 
-        if (typeof handlers[0] === "function") {
-            this.resolve(handlers.shift()(this.frontVal));
-        } else {
-            this.resolve(handlers.shift() || this.frontVal);
+        let funObj = this.handlers.shift();
+        if (this.isRejected) {
+            if (typeof funObj.resolve !== "undefined") {
+                return this.findFn();
+            }
+            this.isRejected = false;
         }
+        return funObj;
     }
 }
-MyPromise.state = STATUS_PENDING;
 
 export default MyPromise;
