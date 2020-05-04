@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装与解封装</title>
+</head>
+<body>
+
+<pre>
+    <h1>两台电脑之间数据传递过程中的封装和解封装</h1>
+    <h3>数据的封装</h3>
+    数据在发送之前会进行封装
+    APP头部 数据
+    UDP头部 APP头部 数据
+    IP头部 UDP头部 APP头部 数据
+    以太网头部 IP头部 UDP头部 APP头部 数据
+    就会变成比特流传输传输给对端
+    <img src="../imgs/data-package.png" alt="数据的封装">
+
+    <span style="color: red;">*总结：逐渐加头部的过程 是从应用封装到物理层</span>
+
+    <h3>数据解封装</h3>
+    当服务器接收数据流量的时候 我这边会进行解分装
+    首先会接收比特流
+    IP头部 UDP头部 APP头部 数据
+    UDP头部 APP头部 数据
+    APP头部 数据
+    数据
+    <img src="../imgs/data-unpackage.png" alt="数据的解封装">
+
+    <span style="color: red;">*总结：逐渐去掉头部的过程 是从物理层解封装到应用层</span>
+
+</pre>
+
+</body>
+</html>
