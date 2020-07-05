@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Activate Success</title>
+    <script src="../jquery/jquery-3.3.1.js"></script>
+</head>
+<body>
+    <h2>恭喜您，激活成功！</h2>
+    <script>
+        let url = "http://192.168.0.7:3000/user/addEmail";
+        $.get(url, (res) => {
+            console.log("active:", res)
+        });
+    </script>
+</body>
+</html>
