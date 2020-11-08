@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>H5 的WebSocket Client</title>
+</head>
+<body>
+    <h1>可以打开多个窗口，验证广播。</h1>
+    <button onclick="sendAll()">广播</button>
+<script>
+    //H5 的WebSocket
+    let clent = new WebSocket("ws://localhost:8888");
+    clent.onopen = function (e) {
+        let msg = "Hello";//server只接收字符串
+        console.log("Client发送数据=> ", msg);
+        clent.send(msg);
+    };
+    clent.onclose = function (e) {
+        console.log("Server主动关闭连接.");
+    };
+    clent.onmessage = function (msgEvent) {
+        console.log(msgEvent.data, "<= 接收来自server的数据");
+    };
+    clent.onerror = function (err) {
+        console.log("出错啦：", err);
+    };
+    function sendAll() {
+        console.log("开始广播，所有的client都会接收到数据。");
+        clent.send("all");
+    }
+</script>
+</body>
+</html>

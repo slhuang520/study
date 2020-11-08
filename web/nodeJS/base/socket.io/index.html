@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket.io Client</title>
+    <script src="socket.io.js"></script>
+</head>
+<body>
+<script>
+    //这3种方式都可以
+    //io()不传参数的话，会自动获取当前的访问路径
+    // let client = io("http://localhost:3000", {});
+
+    // let client = io({
+    //     hostname: "localhost",
+    //     path: "/socket.io",
+    //     port: "3000"
+    // });
+
+    let client = io();
+    client.on("hehe", msg => {
+        // console.log("hehe", msg);
+        document.body.innerHTML = "<h1>hehe: " + msg + "</h1>";
+    });
+    client.emit("haha", "我很好！");
+</script>
+</body>
+</html>
