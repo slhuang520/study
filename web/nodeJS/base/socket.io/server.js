@@ -1,5 +1,6 @@
 //https://github.com/socketio/socket.io
 //与express结合
+//注意跨域问题
 const express = require("express"),
     app = express(),
     server = require("http").createServer(app),
