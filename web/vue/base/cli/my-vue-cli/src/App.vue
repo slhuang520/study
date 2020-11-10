@@ -21,4 +21,7 @@
       'app-server-status': serverStatus
     }
   };
+  $(function () {
+    //alert(2222);
+  });
 </script>

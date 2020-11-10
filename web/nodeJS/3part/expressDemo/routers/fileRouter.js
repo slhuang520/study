@@ -29,6 +29,8 @@ let storage = multer.diskStorage({
 //     }
 // });
 //
+//upload.single 单文件上传
+//upload.array 多文件上传
 // router.post("/upload", upload.single("hehe"), (req, res, next) => {
 //     console.log("req.file:",req.file);
 //     let {filename, size, mimetype} = req.file;
@@ -42,7 +44,8 @@ let upload = multer({
     fileFilter: (req, file, cb) => {
         console.log("file:",file);
         const acceptFiles = ["jpg", "jpeg", "png", "gif"];
-        let suffix = file.originalname.split(".")[1];
+        const fileNameArr = file.originalname.split(".");
+        let suffix = fileNameArr[fileNameArr.length - 1];
 
         if (acceptFiles.includes(suffix)) {
             cb(null, true);
